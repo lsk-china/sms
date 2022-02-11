@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset='utf-8'>
+    <link href="http://localhost:10001/sms/style.css" type="text/css" rel="stylesheet" />
+    <style>
+
+    </style>
+</head>
+<body>
+<header>
+    <span class="title welcome">你好</span>
+    <a class="button logout" href="/logout">登出</a>
+    <img class="head" th:src="${image}"></img>
+</header>
+<div class="main-container">
+    <div class="content">
+        <div class="student-infomation-container">
+            <span class="title infomation-label">个人信息</span><br>
+            <span class="label">姓名: </span><span class="data" th:text="${student.name}"></span><br>
+            <span class="label">年龄: </span><span class="data" th:text="${student.age}"></span><br>
+            <span class="label">性别: </span><span class="data" th:text="${student.sex}"></span><br>
+            <span class="label">年级: </span><span class="data" th:text="${student.grade}"></span><br>
+            <span class="label">班级: </span><span class="data" th:text="${student.clazz}"></span><br>
+        </div>
+        <div class="student-operation">
+            <div class="operation-update-password">
+                <span class="title">更改密码</span>
+                <form class="update-password-form" action="/updatestudent_s" method="get">
+                    <span class="add-content-label">密码: </span><input class="add-content-text" type="password" name="password"><br>
+                    <input class="submit" type="submit" value="更改">
+                </form>
+            </div>
+            <div class="operation-update-image">
+                <span class="title">更改头像</span>
+                <form class="update-password-form" action="/updateimage" method="post" enctype="multipart/form-data">
+                    <span class="add-content-label">上传图片: </span><input class="file" name="file" type="file"><br>
+                    <input class="submit" type="submit" value="更改">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
