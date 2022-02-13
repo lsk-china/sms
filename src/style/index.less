@@ -1,0 +1,40 @@
+@import "common";
+
+.mainContainer {
+  display: flex;
+  flex-direction: row;
+}
+.leftContainer {
+  height: 100%;
+  width: 20%;
+  background: grey;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+h1 {
+  text-align: center;
+  margin-top: 20px;
+}
+.buttonsContainer {
+  .full();
+  margin-top: 40px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-top: #333 1px solid;
+}
+.divButton {
+  height: 60px;
+  width: 100%;
+  cursor: pointer;
+  border-bottom: #333 1px solid;
+  transition: .3s ease;
+}
+.divButton:hover {
+  background: #555;
+}
+.rightContainer {
+  .full();
+  background: #EEE;
+}
