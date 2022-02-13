@@ -37,6 +37,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        log.debug(username);
         Person person = personDao.queryPersonByName(username);
         if (person == null) {
             throw new UsernameNotFoundException("Unknown person");
@@ -51,7 +52,8 @@ public class MyUserDetailsService implements UserDetailsService {
         GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_" + person.getRole());
         grantedAuthorities.add(grantedAuthority);
         String password = passwordEncoder.encode(person.getPassword());
+//        String password = person.getPassword();
         log.info(person.getRole());
-        return new User(username,password,grantedAuthorities);
+        return new User(username, password,grantedAuthorities);
     }
 }

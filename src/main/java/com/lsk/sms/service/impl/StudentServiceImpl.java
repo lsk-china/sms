@@ -10,6 +10,8 @@ import com.lsk.sms.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("studentService")
 public class StudentServiceImpl implements StudentService {
     @Autowired
@@ -90,5 +92,8 @@ public class StudentServiceImpl implements StudentService {
     public void studentReport(String clazz, Integer dormitoryID, Integer personID, Integer matriculateNum) {
         studentDao.completeStudent(clazz, dormitoryID, personID, matriculateNum);
     }
-
+    @Override
+    public List<Student> notReportedStudents() {
+        return studentDao.notReportedStudents();
+    }
 }

@@ -38,5 +38,8 @@ public interface StudentDao {
 
     @Update("update students set clazz=#{clazz},dormitoryID=#{dormitoryID},personID=#{personID} where matriculateNum=#{matriculateNum}")
     void completeStudent(@Param("clazz") String clazz, @Param("dormitoryID") Integer dormitoryID, @Param("personID") Integer personID, @Param("matriculateNum") Integer matriculateNum);
+
+    @Select("select * from students where clazz=\"unset\"")
+    List<Student> notReportedStudents();
 }
 
