@@ -10,16 +10,14 @@ import com.lsk.sms.util.HashUtil;
 import com.lsk.sms.util.SecurityUtil;
 import com.lsk.sms.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -254,5 +252,26 @@ public class Controller {
     @GetMapping("/admin/notReportedStudents")
     public Object notReportedStudents() {
         return studentService.notReportedStudents();
+    }
+
+    @JsonReturn
+    @GetMapping("/admin/deleteStudent")
+    public Object deleteStudent(Integer id) {
+        studentService.deleteStudent(id);
+        return "Success";
+    }
+
+    @JsonReturn
+    @GetMapping("/admin/deletePerson")
+    public Object deletePerson(Integer id) {
+        studentService.deleteStudent(id);
+        return "Success";
+    }
+
+    @JsonReturn
+    @GetMapping("/finance/deletePayment")
+    public Object deletePayment(Integer id) {
+        paymentService.deletePayment(id);
+        return "Success";
     }
 }

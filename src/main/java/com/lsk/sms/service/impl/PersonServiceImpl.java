@@ -7,11 +7,13 @@ import com.lsk.sms.response.StatusCode;
 import com.lsk.sms.service.PersonService;
 import com.lsk.sms.util.HashUtil;
 import com.lsk.sms.util.SecurityUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service("personService")
 public class PersonServiceImpl implements PersonService {
     @Autowired
@@ -53,7 +55,8 @@ public class PersonServiceImpl implements PersonService {
     }
     @Override
     public void grantPerson(Integer targetID, String role) {
-        personDao.updateUsernameById(role, targetID);
+        log.debug(targetID + " -> " + role);
+        personDao.updateRoleById(role, targetID);
     }
 
     @Override
@@ -64,5 +67,10 @@ public class PersonServiceImpl implements PersonService {
         person.setRole("STUDENT");
         personDao.addPerson(person);
         return person.getId();
+    }
+
+    @Override
+    public void deletePerson(Integer id) {
+        personDao.deletePerson(id);
     }
 }

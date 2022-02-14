@@ -96,4 +96,9 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> notReportedStudents() {
         return studentDao.notReportedStudents();
     }
+
+    @Override
+    public void deleteStudent(Integer id) {
+        studentDao.deleteStudent(id);
+    }
 }

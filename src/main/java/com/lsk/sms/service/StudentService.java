@@ -16,4 +16,6 @@ public interface StudentService {
     void studentReport(String clazz, Integer dormitoryID, Integer personID, Integer matriculateNum);
 
     List<Student> notReportedStudents();
+
+    void deleteStudent(Integer id);
 }

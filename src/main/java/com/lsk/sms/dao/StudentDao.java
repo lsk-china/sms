@@ -41,5 +41,8 @@ public interface StudentDao {
 
     @Select("select * from students where clazz=\"unset\"")
     List<Student> notReportedStudents();
+
+    @Delete("delete from students where id=#{id}")
+    void deleteStudent(@Param("id") Integer id);
 }
 

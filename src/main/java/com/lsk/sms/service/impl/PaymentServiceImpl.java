@@ -72,4 +72,9 @@ public class PaymentServiceImpl implements PaymentService {
         }
         return result;
     }
+
+    @Override
+    public void deletePayment(Integer id) {
+        paymentDao.deletePayment(id);
+    }
 }

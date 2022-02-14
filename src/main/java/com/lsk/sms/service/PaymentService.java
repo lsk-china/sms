@@ -15,4 +15,6 @@ public interface PaymentService {
     void publishPayment(String content, Date limitDate, Integer fee);
 
     List<Student> studentsNotPayed(Integer paymentID);
+
+    void deletePayment(Integer id);
 }

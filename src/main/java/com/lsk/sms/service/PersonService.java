@@ -13,4 +13,6 @@ public interface PersonService {
     void grantPerson(Integer targetID, String role);
 
     Integer createStudent(String username, String password);
+
+    void deletePerson(Integer id);
 }

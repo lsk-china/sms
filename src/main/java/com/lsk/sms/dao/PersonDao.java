@@ -33,4 +33,6 @@ public interface PersonDao {
     @Update("update persons set role=#{role} where id=#{id}")
     public void updateRoleById(@Param("role") String role, @Param("id") Integer id);
 
+    @Delete("delete from persons where id=#{id}")
+    void deletePerson(@Param("id") Integer id);
 }

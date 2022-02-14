@@ -14,6 +14,8 @@ public interface PaymentDao {
     void createPayment(Payment payment);
     @Update("update payments set payedCount=payedCount+1 where id=#{id}")
     void increasePayedCount(@Param("id") Integer id);
+    @Delete("delete from payments where id=#{id}")
+    void deletePayment(@Param("id") Integer id);
 
     @Select("select * from pay_record")
     List<PayRecord> queryAllPayRecord();
@@ -25,5 +27,4 @@ public interface PaymentDao {
     void createPayRecord(PayRecord payRecord);
     @Select("select id from pay_record where targetPaymentID=#{targetPaymentID}")
     List<Integer> queryPayRecordIDsByTargetID(@Param("targetPaymentID") Integer targetPaymentID);
-
 }
