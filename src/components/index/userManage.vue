@@ -1,5 +1,5 @@
 <template>
-  <div class="mainContainer">
+  <div class="mainContainer" style="flex-direction: column; flex-shrink: 0; overflow-y: auto">
     <el-dialog
       :visible.sync="showGrantPersonDialog"
       title="选择权限"
@@ -37,6 +37,28 @@
         </el-table>
       </keep-alive>
     </div>
+    <div class="card">
+      <span class="cardTitle">新建用户</span>
+      <div class="inputGroup">
+        <div class="groupItem">
+          <div class="labelWrap"><span class="label">用户名:</span></div>
+          <el-input type="text" class="input" v-model="createPerson.name"></el-input>
+        </div>
+        <div class="groupItem">
+          <div class="labelWrap"><span class="label">密码:</span></div>
+          <el-input type="password" class="input" v-model="createPerson.password"></el-input>
+        </div>
+        <div class="groupItem">
+          <div class="labelWrap" style="margin-right: 20px;"><span class="label">角色:</span></div>
+          <el-select v-model="createPerson.role">
+            <el-option value="ADMIN" label="管理员"></el-option>
+            <el-option value="STUDENT" label="学生"></el-option>
+            <el-option value="FINANCE" label="财务"></el-option>
+          </el-select>
+        </div>
+        <el-button type="primary" class="submit createUserSubmit" @click="doCreatePerson">提交</el-button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -52,7 +74,12 @@ export default {
       grantPersonTargetRole: '',
       deletePersonID: 0,
       showGrantPersonDialog: false,
-      showEnsureDeleteDialog: false
+      showEnsureDeleteDialog: false,
+      createPerson: {
+        name: '',
+        password: '',
+        role: ''
+      }
     }
   },
   methods: {
@@ -89,6 +116,25 @@ export default {
       }).catch(reason => {
         this.$message.error('删除失败!')
       })
+    },
+    doCreatePerson: function () {
+      this.createPerson.name = this.createPerson.name.trim()
+      this.createPerson.name = this.createPerson.name.trim()
+      if (this.createPerson.name === '' || this.createPerson.password === '' || this.createPerson.role === '') {
+        this.$message.error('请填写参数！')
+        return
+      }
+      admin.createPerson(this.createPerson.name, this.createPerson.password, this.createPerson.role).then(() => {
+        this.createPerson.name = ''
+        this.createPerson.password = ''
+        this.createPerson.role = ''
+        this.$message.success('创建成功！')
+      }).catch(reason => {
+        this.createPerson.name = ''
+        this.createPerson.password = ''
+        this.createPerson.role = ''
+        this.$message.error('创建失败！')
+      })
     }
   },
   created () {
@@ -102,4 +148,4 @@ export default {
 }
 </script>
 
-<style src="../../style/accountManage.less" lang="less" scoped></style>
+<style src="../../style/userManage.less" lang="less" scoped></style>

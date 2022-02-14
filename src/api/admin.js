@@ -34,6 +34,20 @@ const admin = {
         reject(reason)
       })
     })
+  },
+  createPerson: function (name, password, role) {
+    return new Promise((resolve, reject) => {
+      base.post('/admin/createPerson', {
+        username: name,
+        password: password,
+        role: role
+      }).then(resp => {
+        console.log(resp)
+        resolve()
+      }).catch(reason => {
+        reject(reason)
+      })
+    })
   }
 }
 

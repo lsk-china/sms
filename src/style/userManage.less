@@ -1,2 +1,45 @@
 @import "common";
 
+.inputGroup {
+  .full();
+  display: flex;
+  flex-direction: column;
+}
+.groupItem {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+}
+.submit {
+  margin-top: 20px;
+  float: right;
+}
+.card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px #888888;
+  margin-left: 20px;
+  margin-top: 20px;
+  padding: 20px;
+  height: fit-content;
+  width: fit-content;
+}
+.cardTitle {
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+.labelWrap{
+  height: 100%;
+  width: 70px;
+  .flexCenter();
+  justify-content: flex-end;
+  margin-right: 20px;
+}
+.input {
+  width: 300px;
+}
+.createUserSubmit {
+  width: fit-content;
+  flex-shrink: 0;
+  align-self: flex-end;
+}
