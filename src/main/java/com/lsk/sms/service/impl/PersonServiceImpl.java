@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Service("personService")
@@ -50,8 +51,10 @@ public class PersonServiceImpl implements PersonService {
         person.setName(username);
         person.setPassword(HashUtil.sha256String(password));
         person.setRole("USER");
+        person.setUuid(UUID.randomUUID().toString());
         personDao.addPerson(person);
-        return person.getId();
+        Integer id = personDao.getPersonIDByUUID(person.getUuid());
+        return id;
     }
     @Override
     public void grantPerson(Integer targetID, String role) {

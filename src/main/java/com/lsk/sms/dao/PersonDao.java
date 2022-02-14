@@ -17,9 +17,8 @@ public interface PersonDao {
     @Select("select * from persons where id=#{id}")
     public Person queryPersonById(@Param("id") Integer id);
 
-    @Options(useGeneratedKeys = true)
-    @Insert("insert into persons(name,password,role) values(#{name},#{password},#{role})")
-    public void addPerson(Person person);
+    @Insert("insert into persons(name,password,role,uuid) values(#{name},#{password},#{role},#{uuid})")
+    void addPerson(Person person);
 
     @Update("update persons set password=#{password} where id=#{id}")
     public void updatePassword(@Param("password") String newPassword, @Param("id") Integer id);
@@ -35,4 +34,7 @@ public interface PersonDao {
 
     @Delete("delete from persons where id=#{id}")
     void deletePerson(@Param("id") Integer id);
+
+    @Select("select id from persons where uuid=#{uuid}")
+    Integer getPersonIDByUUID(@Param("uuid") String uuid);
 }

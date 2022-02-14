@@ -264,7 +264,7 @@ public class Controller {
     @JsonReturn
     @GetMapping("/admin/deletePerson")
     public Object deletePerson(Integer id) {
-        studentService.deleteStudent(id);
+        personService.deletePerson(id);
         return "Success";
     }
 
