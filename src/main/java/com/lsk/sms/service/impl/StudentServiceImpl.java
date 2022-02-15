@@ -101,4 +101,9 @@ public class StudentServiceImpl implements StudentService {
     public void deleteStudent(Integer id) {
         studentDao.deleteStudent(id);
     }
+
+    @Override
+    public List<Student> queryStudents () {
+        return studentDao.queryAllStudents();
+    }
 }

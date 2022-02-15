@@ -18,4 +18,6 @@ public interface StudentService {
     List<Student> notReportedStudents();
 
     void deleteStudent(Integer id);
+
+    List<Student> queryStudents();
 }

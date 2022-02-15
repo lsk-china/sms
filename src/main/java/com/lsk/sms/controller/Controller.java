@@ -3,6 +3,7 @@ package com.lsk.sms.controller;
 import com.lsk.sms.model.Payment;
 import com.lsk.sms.model.Student;
 import com.lsk.sms.response.JsonReturn;
+import com.lsk.sms.response.Pagination;
 import com.lsk.sms.service.PaymentService;
 import com.lsk.sms.service.PersonService;
 import com.lsk.sms.service.StudentService;
@@ -43,6 +44,7 @@ public class Controller {
      * @return
      */
     @JsonReturn
+    @Pagination
     @GetMapping("/admin/personList")
     public Object personList() {
         return personService.queryAllPersons();
@@ -219,6 +221,7 @@ public class Controller {
      * @return
      */
     @JsonReturn
+    @Pagination
     @GetMapping("/payments")
     public Object payments() {
         return paymentService.allPayments();
@@ -229,6 +232,7 @@ public class Controller {
      * @return
      */
     @JsonReturn
+    @Pagination
     @GetMapping("/student/myPayRecords")
     public Object myPayRecords() {
         return paymentService.myPayRecords();
@@ -240,6 +244,7 @@ public class Controller {
      * @return
      */
     @JsonReturn
+    @Pagination
     @GetMapping("/finance/notPayedStudents")
     public Object notPayedStudents(Integer paymentID) {
         return paymentService.studentsNotPayed(paymentID);
@@ -249,6 +254,7 @@ public class Controller {
      * 查询我未报道的学生
      */
     @JsonReturn
+    @Pagination
     @GetMapping("/admin/notReportedStudents")
     public Object notReportedStudents() {
         return studentService.notReportedStudents();
@@ -273,5 +279,12 @@ public class Controller {
     public Object deletePayment(Integer id) {
         paymentService.deletePayment(id);
         return "Success";
+    }
+
+    @JsonReturn
+    @Pagination
+    @GetMapping("/admin/allStudents")
+    public Object allStudents() {
+        return studentService.queryStudents();
     }
 }

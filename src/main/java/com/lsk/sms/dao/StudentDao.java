@@ -17,7 +17,7 @@ public interface StudentDao {
     @Delete("delete from students where id=#{id}")
     public void deleteStudentById(@Param("id") Integer id);
 
-    @Select("select * from students")
+    @Select("select * from students where personID<>-1")
     public List<Student> queryAllStudents();
 
     @Update("update students set image=#{image} where id=#{id}")
