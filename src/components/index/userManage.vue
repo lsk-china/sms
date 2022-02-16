@@ -23,6 +23,7 @@
     </el-dialog>
     <div class="card">
       <span class="cardTitle">用户列表</span>
+      <span class="refreshIcon" @click="refreshTable"></span>
       <keep-alive>
         <el-table :data="persons" stripe border width="100%" style="margin-top: 20px;">
           <el-table-column prop="id" label="用户ID" width="100px" align="center"></el-table-column>
@@ -36,9 +37,17 @@
           </el-table-column>
         </el-table>
       </keep-alive>
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        :total="userListTotalPages"
+        :current-page.sync="userListPage"
+        @current-change="refreshTable"
+      >
+      </el-pagination>
     </div>
     <div class="card">
-      <span class="cardTitle">新建用户</span>
+      <span class="cardTitle" style="float: left">新建用户</span>
       <div class="inputGroup">
         <div class="groupItem">
           <div class="labelWrap"><span class="label">用户名:</span></div>
@@ -79,7 +88,9 @@ export default {
         name: '',
         password: '',
         role: ''
-      }
+      },
+      userListPage: 1,
+      userListTotalPages: 0
     }
   },
   methods: {
@@ -135,15 +146,19 @@ export default {
         this.createPerson.role = ''
         this.$message.error('创建失败！')
       })
+    },
+    refreshTable: function () {
+      admin.personList(this.userListPage).then(resp => {
+        console.log(resp)
+        this.persons = resp.paged
+        this.userListTotalPages = resp.totalPages * 10
+      }).catch(reason => {
+        this.$message.error('获取用户列表失败！')
+      })
     }
   },
   created () {
-    admin.personList().then(resp => {
-      console.log(resp)
-      this.persons = resp
-    }).catch(reason => {
-      this.$message.error('获取用户列表失败！')
-    })
+    this.refreshTable()
   }
 }
 </script>

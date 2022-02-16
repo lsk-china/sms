@@ -1,9 +1,11 @@
 import base from './base'
 
 const admin = {
-  personList: function () {
+  personList: function (page) {
     return new Promise((resolve, reject) => {
-      base.get('/admin/personList', {}).then(resp => {
+      base.get('/admin/personList', {
+        page: page
+      }).then(resp => {
         console.log(resp)
         resolve(resp)
       }).catch(reason => {

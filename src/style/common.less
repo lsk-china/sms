@@ -29,11 +29,28 @@
   box-shadow: 5px 5px 10px #888888;
   margin-left: 20px;
   margin-top: 20px;
+  margin-right: 20px;
   padding: 20px;
   height: fit-content;
   width: fit-content;
+  position: relative;
 }
 .cardTitle {
   font-size: 25px;
+  margin-bottom: 20px;
+}
+.refreshIcon:before {
+  content: "\E6D0";
+  font-family: "element-icons";
+  font-size: 20px;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  transition: .3s ease;
+}
+.refreshIcon:hover:before {
+  transform: rotate(180deg);
+}
+.card:last-child {
   margin-bottom: 20px;
 }

@@ -10,7 +10,7 @@
             <div class="divButton flexCenter" @click="changeComponent('userManage')">
               <h3>用户管理</h3>
             </div>
-            <div class="divButton flexCenter">
+            <div class="divButton flexCenter" @click="changeComponent('studentManage')">
               <h3>学生管理</h3>
             </div>
           </div>
@@ -28,6 +28,7 @@
 import auth from '../api/auth'
 import accountManage from './index/accountManage'
 import userManage from './index/userManage'
+import studentManage from './index/studentManage'
 
 export default {
   name: 'index',
@@ -45,6 +46,9 @@ export default {
           break
         case 'userManage':
           this.rightComponent = userManage
+          break
+        case 'studentManage':
+          this.rightComponent = studentManage
           break
       }
     }
