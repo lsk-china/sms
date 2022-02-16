@@ -39,10 +39,9 @@ public class StudentServiceImpl implements StudentService {
             address = student.getAddress();
         }
         if (StringUtil.containsEmpty(telephone)) {
-            telephone = student.getTelephone().toString();
+            telephone = student.getTelephone();
         }
-        Integer telephoneNumber = Integer.valueOf(telephone);
-        studentDao.updateStudent(name, address, telephoneNumber, id);
+        studentDao.updateStudent(name, address, telephone, id);
     }
 
     @Override
@@ -55,7 +54,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void admitStudent(String name, Integer age, Integer sex, Integer matriculateNum, String address, Integer telephone) {
+    public void admitStudent(String name, Integer age, Integer sex, Integer matriculateNum, String address, String telephone) {
         Student student = new Student();
         student.setName(name);
         student.setAge(age);
@@ -66,6 +65,7 @@ public class StudentServiceImpl implements StudentService {
         student.setDormitoryID(-1);
         student.setClazz("unset");
         student.setPersonID(-1);
+        studentDao.createStudent(student);
     }
 
     @Override
@@ -89,8 +89,8 @@ public class StudentServiceImpl implements StudentService {
 //    }
 
     @Override
-    public void studentReport(String clazz, Integer dormitoryID, Integer personID, Integer matriculateNum) {
-        studentDao.completeStudent(clazz, dormitoryID, personID, matriculateNum);
+    public void studentReport(String clazz, Integer dormitoryID, Integer personID, Integer id) {
+        studentDao.completeStudent(clazz, dormitoryID, personID, id);
     }
     @Override
     public List<Student> notReportedStudents() {

@@ -19,6 +19,6 @@ public class Student {
     private Integer dormitoryID;
     private Integer matriculateNum;
     private String address;
-    private Integer telephone;
+    private String telephone;
     private Integer personID;
 }

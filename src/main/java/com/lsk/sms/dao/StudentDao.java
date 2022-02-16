@@ -27,7 +27,7 @@ public interface StudentDao {
     public Student queryStudentByMatriculateNum(@Param("matriculateNum") Integer matriculateNum);
 
     @Update("update students set name=#{name},address=#{address},telephone=#{telephone} where personID=#{personID}")
-    public void updateStudent(@Param("name") String name, @Param("address") String address, @Param("telephone") Integer telephone, @Param("personID") Integer personID);
+    public void updateStudent(@Param("name") String name, @Param("address") String address, @Param("telephone") String telephone, @Param("personID") Integer personID);
 
     @Select("select * from students where personID=#{personID}")
     public Student queryStudentByPersonID(@Param("personID") Integer personID);
@@ -36,8 +36,8 @@ public interface StudentDao {
     @Insert("insert into students(name, clazz, age, sex, dormitoryID, matriculateNum, address, telephone, personID) values(#{name}, #{clazz}, #{age}, #{sex}, #{dormitoryID}, #{matriculateNum}, #{address}, #{telephone}, #{personID})")
     void createStudent(Student student);
 
-    @Update("update students set clazz=#{clazz},dormitoryID=#{dormitoryID},personID=#{personID} where matriculateNum=#{matriculateNum}")
-    void completeStudent(@Param("clazz") String clazz, @Param("dormitoryID") Integer dormitoryID, @Param("personID") Integer personID, @Param("matriculateNum") Integer matriculateNum);
+    @Update("update students set clazz=#{clazz},dormitoryID=#{dormitoryID},personID=#{personID} where id=#{id}")
+    void completeStudent(@Param("clazz") String clazz, @Param("dormitoryID") Integer dormitoryID, @Param("personID") Integer personID, @Param("id") Integer id);
 
     @Select("select * from students where clazz=\"unset\"")
     List<Student> notReportedStudents();

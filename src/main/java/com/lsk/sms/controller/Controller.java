@@ -109,29 +109,29 @@ public class Controller {
      */
     @JsonReturn
     @PostMapping("/admin/admitStudent")
-    public Object admitStudent(String name, Integer age, Integer sex, Integer matriculateNum, String address, Integer telephone) {
+    public Object admitStudent(String name, Integer age, Integer sex, Integer matriculateNum, String address, String telephone) {
         studentService.admitStudent(name, age, sex, matriculateNum, address, telephone);
         return "Success";
     }
 
     /**
      * 学生报道
-     * @param matriculateNum
+     *
      * @param clazz
      * @param dormitoryID
      * @return
      */
     @JsonReturn
     @PostMapping("/admin/studentReport")
-    public Object studentReport(Integer matriculateNum, String clazz, Integer dormitoryID) {
+    public Object studentReport(Integer id, String clazz, Integer dormitoryID) {
         Map<String, Object> result = new HashMap<>();
         String temporaryUsername = StringUtil.randomString(10);
         result.put("temporaryUsername", temporaryUsername);
         String temporaryPassword = StringUtil.randomString(10);
         result.put("temporaryPassword", temporaryPassword);
         Integer personID = personService.createStudent(temporaryUsername, temporaryPassword);
-        studentService.studentReport(clazz, dormitoryID, personID, matriculateNum);
-        return "Success";
+        studentService.studentReport(clazz, dormitoryID, personID, id);
+        return result;
     }
 
     /**
