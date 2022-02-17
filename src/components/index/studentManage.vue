@@ -41,6 +41,7 @@
     </el-dialog>
     <div class="card">
       <span class="cardTitle">学生列表</span>
+      <span class="refreshIcon" @click="updateStudentList"></span>
       <el-table :data="studentList">
         <el-table-column prop="id" label="学号" width="50px" align="center"></el-table-column>
         <el-table-column prop="name" label="姓名" width="100px" align="left"></el-table-column>
@@ -69,6 +70,7 @@
     </div>
     <div class="card">
       <span class="cardTitle">学生报道</span>
+      <span class="refreshIcon" @click="updateNotReportedStudents"></span>
       <div class="searchMatriculateContainer">
         <span>录取通知书编号：</span>
         <el-input type="text" class="matriculateNum" v-model="matriculateNumToQuery"></el-input>
@@ -272,6 +274,7 @@ export default {
         this.temporaryPersonInfo.password = resp.temporaryPassword
         this.showReportSuccessDialog = true
       }).catch(reason => {
+        console.error(reason)
         this.reportStudentID = 0
         this.reportData.clazz = 0
         this.reportData.dormitoryID = 0

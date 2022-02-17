@@ -14,8 +14,19 @@
               <h3>学生管理</h3>
             </div>
           </div>
-          <div v-if="loginInfo.authorities[0].role === 'ROLE_STUDENT'"></div>
-          <div v-if="loginInfo.authorities[0].role === 'ROLE_FINANCE'"></div>
+          <div v-if="loginInfo.authorities[0].role === 'ROLE_STUDENT'">
+            <div class="divButton flexCenter" @click="changeComponent('accountManage')">
+              <h3>账户管理</h3>
+            </div>
+          </div>
+          <div v-if="loginInfo.authorities[0].role === 'ROLE_FINANCE'">
+            <div class="divButton flexCenter" @click="changeComponent('accountManage')">
+              <h3>账户管理</h3>
+            </div>
+            <div class="divButton flexCenter" @click="changeComponent('paymentManage')">
+              <h3>缴费管理</h3>
+            </div>
+          </div>
         </div>
       </div>
       <div class="rightContainer">
@@ -29,6 +40,7 @@ import auth from '../api/auth'
 import accountManage from './index/accountManage'
 import userManage from './index/userManage'
 import studentManage from './index/studentManage'
+import paymentManage from './index/paymentManage'
 
 export default {
   name: 'index',
@@ -49,6 +61,9 @@ export default {
           break
         case 'studentManage':
           this.rightComponent = studentManage
+          break
+        case 'paymentManage':
+          this.rightComponent = paymentManage
           break
       }
     }

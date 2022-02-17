@@ -66,7 +66,7 @@ const student = {
         dormitoryID: dormitoryID
       }).then(resp => {
         console.log(resp)
-        resolve()
+        resolve(resp)
       }).catch(reason => {
         reject(reason)
       })
