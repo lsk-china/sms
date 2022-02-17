@@ -68,8 +68,9 @@ public class PersonServiceImpl implements PersonService {
         person.setName(username);
         person.setPassword(HashUtil.sha256String(password));
         person.setRole("STUDENT");
+        person.setUuid(UUID.randomUUID().toString());
         personDao.addPerson(person);
-        return person.getId();
+        return personDao.getPersonIDByUUID(person.getUuid());
     }
 
     @Override
