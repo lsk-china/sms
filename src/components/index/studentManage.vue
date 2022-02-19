@@ -68,6 +68,7 @@
         class="pagination"
       ></el-pagination>
     </div>
+    <div style="width: 200px;height: 200px"></div>
     <div class="card">
       <span class="cardTitle">学生报道</span>
       <span class="refreshIcon" @click="updateNotReportedStudents"></span>

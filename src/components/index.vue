@@ -1,5 +1,5 @@
 <template>
-    <div class="mainContainer">
+    <div class="mainContainer" style="overflow: hidden;display: flex;flex-direction: row">
       <div class="leftContainer">
         <h1>{{loginInfo.name}}<br/>你好</h1>
         <div class="buttonsContainer">

@@ -34,6 +34,7 @@
   height: fit-content;
   width: fit-content;
   position: relative;
+  overflow: hidden;
 }
 .cardTitle {
   font-size: 25px;
@@ -53,4 +54,15 @@
 }
 .card:last-child {
   margin-bottom: 20px;
+}
+.el-card{
+  flex-shrink: 0;
+  border-radius: 10px;
+  margin: 20px;
+  width: fit-content;
+  padding-bottom: 20px;
+}
+.input, .input > * {
+  flex-shrink: 0;
+  overflow: hidden;
 }
