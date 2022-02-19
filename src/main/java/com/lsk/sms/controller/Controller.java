@@ -1,23 +1,18 @@
 package com.lsk.sms.controller;
 
-import com.lsk.sms.model.Payment;
-import com.lsk.sms.model.Student;
-import com.lsk.sms.response.JsonReturn;
-import com.lsk.sms.response.Pagination;
+import com.lsk.sms.response.annotation.FormatDate;
+import com.lsk.sms.response.annotation.JsonReturn;
+import com.lsk.sms.response.annotation.Pagination;
 import com.lsk.sms.service.PaymentService;
 import com.lsk.sms.service.PersonService;
 import com.lsk.sms.service.StudentService;
-import com.lsk.sms.util.HashUtil;
 import com.lsk.sms.util.SecurityUtil;
 import com.lsk.sms.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
@@ -222,6 +217,7 @@ public class Controller {
      */
     @JsonReturn
     @Pagination
+    @FormatDate("yyyy MM dd HH mm ss")
     @GetMapping("/payments")
     public Object payments() {
         return paymentService.allPayments();

@@ -1,4 +1,4 @@
-package com.lsk.sms.response;
+package com.lsk.sms.response.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
