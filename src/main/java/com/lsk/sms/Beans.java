@@ -14,6 +14,6 @@ public class Beans {
     public Gson gson() { return new Gson(); }
     @Bean
     public JedisPool jedisPool() {
-        return new JedisPool(new JedisPoolConfig(), "localhost", 6379, 5000, "lsk123456", 3);
+        return new JedisPool(new JedisPoolConfig(), "localhost", 6379, 5000, "", 3);
     }
 }
