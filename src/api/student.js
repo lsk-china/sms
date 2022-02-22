@@ -71,6 +71,17 @@ const student = {
         reject(reason)
       })
     })
+  },
+  studentInfo: function () {
+    return new Promise((resolve, reject) => {
+      base.get('/student/info', {}).then(resp => {
+        console.log(resp)
+        resolve(resp)
+      }).catch(reason => {
+        console.error(reason)
+        reject(reason)
+      })
+    })
   }
 }
 

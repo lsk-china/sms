@@ -29,7 +29,52 @@ const payment = {
   },
   queryNotPayedStudent: function (targetID, page) {
     return new Promise((resolve, reject) => {
-      base.get('/finance/notPayedStudents', )
+      base.get('/finance/notPayedStudents', {
+        paymentID: targetID,
+        page: page
+      }).then(resp => {
+        console.log(resp)
+        resolve(resp)
+      }).catch(reason => {
+        console.error(reason)
+        reject(reason)
+      })
+    })
+  },
+  deletePayment: function (id) {
+    return new Promise((resolve, reject) => {
+      base.get('/finance/deletePayment', {id: id}).then(resp => {
+        console.log(resp)
+        resolve()
+      }).catch(reason => {
+        console.error(reason)
+        reject(reason)
+      })
+    })
+  },
+  myPayRecords: function (page) {
+    return new Promise((resolve, reject) => {
+      base.get('/student/myPayRecords', {page: page}).then(resp => {
+        console.log(resp)
+        resolve(resp)
+      }).catch(reason => {
+        console.error(reason)
+        reject(reason)
+      })
+    })
+  },
+  pay: function (targetID, serialNumber) {
+    return new Promise((resolve, reject) => {
+      base.post('/student/pay', {
+        targetPaymentID: targetID,
+        serialNumber: serialNumber
+      }).then(resp => {
+        console.log(resp)
+        resolve()
+      }).catch(reason => {
+        console.error(reason)
+        reject(reason)
+      })
     })
   }
 }

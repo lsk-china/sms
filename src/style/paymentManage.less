@@ -30,3 +30,44 @@
   width: fit-content;
   height: fit-content;
 }
+.notPaymentStudentsDialog {
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  .flexCenter();
+}
+.notPaymentStudentsDialog > * {
+  margin: unset!important;
+}
+.unsetMargin {
+  margin: unset!important;
+}
+.myPagination {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 20px;
+}
+.paginationButton {
+  height: 30px;
+  width: 30px;
+  background: #f4f4f5;
+  border-radius: 2px;
+  margin-left: 10px;
+  cursor: default;
+  user-select: none;
+  transition: 0.3s;
+  font-size: 13px;
+}
+.hoverBlue:hover {
+  color: #409eff;
+}
+.myPager {
+  display: flex;
+  flex-direction: row;
+}
+.currentButton {
+  background: #409eff;
+  color: white;
+}

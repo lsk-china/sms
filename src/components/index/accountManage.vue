@@ -1,5 +1,5 @@
 <template>
-  <div class="mainContainer">
+  <div class="mainContainer" style="position: relative">
     <el-dialog
       :visible.sync="showEnsurePasswordDialog"
       title="确认密码"
@@ -20,11 +20,57 @@
       <el-input type="password" class="input" v-model="newPassword"></el-input>
       <el-button type="primary" class="submit" @click="showEnsurePasswordDialog = true">提交</el-button>
     </div>
+    <div class="card"
+         v-if="$parent.loginInfo.authorities[0].role === 'ROLE_STUDENT'"
+         style="position: absolute; left: 0; top: 210px;"
+    >
+      <span class="cardTitle">我的信息</span>
+      <div class="studentInfo">
+        <div class="infoItem">
+          <span class="key">学号：</span>
+          <span class="value" v-text="studentInfo.id"></span>
+        </div>
+        <div class="infoItem">
+          <span class="key">姓名：</span>
+          <span class="value" v-text="studentInfo.name"></span>
+        </div>
+        <div class="infoItem">
+          <span class="key">年龄：</span>
+          <span class="value" v-text="studentInfo.age"></span>
+        </div>
+        <div class="infoItem">
+          <span class="key">性别：</span>
+          <span class="value" v-if="studentInfo.sex === 1">男</span>
+          <span class="value" v-if="studentInfo.sex === 0">女</span>
+        </div>
+        <div class="infoItem">
+          <span class="key">电话：</span>
+          <span class="value" v-text="studentInfo.telephone"></span>
+        </div>
+        <div class="infoItem">
+          <span class="key">住址：</span>
+          <span class="value" v-text="studentInfo.address"></span>
+        </div>
+        <div class="infoItem">
+          <span class="key">班级：</span>
+          <span class="value" v-text="studentInfo.clazz"></span>
+        </div>
+        <div class="infoItem">
+          <span class="key">宿舍编号：</span>
+          <span class="value" v-text="studentInfo.dormitoryID"></span>
+        </div>
+        <div class="infoItem">
+          <span class="key">录取通知书编号：</span>
+          <span class="value" v-text="studentInfo.matriculateNum"></span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import auth from '../../api/auth'
+import student from '../../api/student'
 
 export default {
   name: 'accountManage',
@@ -33,7 +79,8 @@ export default {
       newUsername: '',
       newPassword: '',
       ensurePasswordInput: '',
-      showEnsurePasswordDialog: false
+      showEnsurePasswordDialog: false,
+      studentInfo: null
     }
   },
   methods: {
@@ -64,6 +111,15 @@ export default {
         this.$message.success('更新成功！请重新登陆！')
       }).catch(reason => {
         this.$message.error('更新失败！')
+      })
+    }
+  },
+  created () {
+    if (this.$parent.loginInfo.authorities[0].role === 'ROLE_STUDENT') {
+      student.studentInfo().then(resp => {
+        this.studentInfo = resp
+      }).catch(reason => {
+        this.$message.error('获取学生信息失败')
       })
     }
   }
