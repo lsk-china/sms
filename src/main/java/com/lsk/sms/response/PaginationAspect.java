@@ -1,5 +1,7 @@
 package com.lsk.sms.response;
 
+import com.lsk.sms.response.annotation.Pagination;
+import com.lsk.sms.util.ReflectionUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -22,7 +24,6 @@ import java.util.Map;
 @Component
 public class PaginationAspect {
     private static final Logger log = LoggerFactory.getLogger(PaginationAspect.class);
-    private static final int ITEMS_PER_PAGE = 10;
 
     @Pointcut("@annotation(com.lsk.sms.response.annotation.Pagination)")
     public void pagination() {}
@@ -31,6 +32,7 @@ public class PaginationAspect {
     public Object pagination(ProceedingJoinPoint pjp) {
         try {
             Object result = pjp.proceed();
+            int ITEMS_PER_PAGE = ReflectionUtil.getAnnotation(pjp, Pagination.class).value();
             if (!(result instanceof List)) {
                 log.debug(result.toString());
                 throw new RuntimeException("Unsupported type: " + result.getClass().getName());
@@ -58,7 +60,7 @@ public class PaginationAspect {
             if ((indexEnd - 1) > resultList.size()) {
                 indexEnd = resultList.size();
             }
-            List<Object> pagedResult = resultList.subList(indexStart, indexEnd);
+            List<Object> pagedResult = resultList.  subList(indexStart, indexEnd);
             Map<String, Object> resp = new HashMap<>();
             resp.put("totalPages", totalPages);
             resp.put("paged", pagedResult);

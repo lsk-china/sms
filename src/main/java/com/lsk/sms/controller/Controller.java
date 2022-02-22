@@ -229,6 +229,7 @@ public class Controller {
      */
     @JsonReturn
     @Pagination
+    @FormatDate("yyyy MM dd HH mm ss")
     @GetMapping("/student/myPayRecords")
     public Object myPayRecords() {
         return paymentService.myPayRecords();
@@ -240,7 +241,7 @@ public class Controller {
      * @return
      */
     @JsonReturn
-    @Pagination
+    @Pagination(5)
     @GetMapping("/finance/notPayedStudents")
     public Object notPayedStudents(Integer paymentID) {
         return paymentService.studentsNotPayed(paymentID);

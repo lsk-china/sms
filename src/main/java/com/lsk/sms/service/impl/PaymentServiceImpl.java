@@ -7,6 +7,7 @@ import com.lsk.sms.model.Payment;
 import com.lsk.sms.model.Student;
 import com.lsk.sms.redis.RedisDao;
 import com.lsk.sms.service.PaymentService;
+import com.lsk.sms.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,7 +40,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public void pay(Integer targetPaymentID, Integer serialNumber) {
-        String name = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getUsername();
+        String name = SecurityUtil.currentUsername();
         Integer studentID = Integer.parseInt(redisDao.get(name + "-STUDENTID"));
         PayRecord payRecord = new PayRecord();
         payRecord.setOperateDate(new Date());

@@ -23,7 +23,7 @@ public interface PaymentDao {
     List<PayRecord> queryPayRecord(@Param("studentID") Integer studentID);
     @Select("select * from pay_record where targetPaymentID=#{targetPaymentID}")
     List<PayRecord> queryPayRecordByTargetID(@Param("targetPaymentID") Integer paymentID);
-    @Insert("insert into pay_record(studentID, opreateDate, targetPaymentID, serialNumber) values(#{studentID}, #{opreateDate}, #{targetPaymentID}, #{serialNumber})")
+    @Insert("insert into pay_record(studentID, operateDate, targetPaymentID, serialNumber) values(#{studentID}, #{operateDate}, #{targetPaymentID}, #{serialNumber})")
     void createPayRecord(PayRecord payRecord);
     @Select("select id from pay_record where targetPaymentID=#{targetPaymentID}")
     List<Integer> queryPayRecordIDsByTargetID(@Param("targetPaymentID") Integer targetPaymentID);
