@@ -3,6 +3,7 @@ package com.lsk.sms.service.impl;
 import com.lsk.sms.dao.StudentDao;
 import com.lsk.sms.model.Student;
 import com.lsk.sms.redis.RedisDao;
+import com.lsk.sms.redis.StudentCache;
 import com.lsk.sms.response.StatusCode;
 import com.lsk.sms.service.StudentService;
 import com.lsk.sms.util.SecurityUtil;
@@ -91,6 +92,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void studentReport(String clazz, Integer dormitoryID, Integer personID, Integer id) {
         studentDao.completeStudent(clazz, dormitoryID, personID, id);
+        StudentCache.addMapping(id);
     }
     @Override
     public List<Student> notReportedStudents() {

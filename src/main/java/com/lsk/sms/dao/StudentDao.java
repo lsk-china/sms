@@ -44,5 +44,8 @@ public interface StudentDao {
 
     @Delete("delete from students where id=#{id}")
     void deleteStudent(@Param("id") Integer id);
+
+    @Select("select id from students")
+    List<Integer> queryStudentIDs();
 }
 

@@ -35,6 +35,7 @@ public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     private StudentDao studentDao;
 
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.debug(username);
@@ -42,11 +43,11 @@ public class MyUserDetailsService implements UserDetailsService {
         if (person == null) {
             throw new UsernameNotFoundException("Unknown person");
         }
-        redisDao.set(username + "-ID", person.getId().toString());
         if ("STUDENT".equals(person.getRole())) {
             Student student = studentDao.queryStudentByPersonID(person.getId());
             redisDao.set(person.getName() + "-STUDENTID", student.getId().toString());
         }
+        redisDao.set(username + "-ID", person.getId().toString());
         log.info(person.getPassword());
         Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_" + person.getRole());

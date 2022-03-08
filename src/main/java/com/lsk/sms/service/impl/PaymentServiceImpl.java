@@ -6,6 +6,7 @@ import com.lsk.sms.model.PayRecord;
 import com.lsk.sms.model.Payment;
 import com.lsk.sms.model.Student;
 import com.lsk.sms.redis.RedisDao;
+import com.lsk.sms.redis.StudentCache;
 import com.lsk.sms.service.PaymentService;
 import com.lsk.sms.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +35,14 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public List<PayRecord> myPayRecords() {
         String name = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
-        Integer studentID = Integer.parseInt(redisDao.get(name + "-STUDENTID"));
+        Integer studentID = StudentCache.studentID(name);
         return paymentDao.queryPayRecord(studentID);
     }
 
     @Override
     public void pay(Integer targetPaymentID, Integer serialNumber) {
         String name = SecurityUtil.currentUsername();
-        Integer studentID = Integer.parseInt(redisDao.get(name + "-STUDENTID"));
+        Integer studentID = StudentCache.studentID(name);
         PayRecord payRecord = new PayRecord();
         payRecord.setOperateDate(new Date());
         payRecord.setStudentID(studentID);

@@ -1,14 +1,17 @@
 package com.lsk.sms.controller;
 
+import com.lsk.sms.dao.NoticeDao;
 import com.lsk.sms.response.annotation.FormatDate;
 import com.lsk.sms.response.annotation.JsonReturn;
 import com.lsk.sms.response.annotation.Pagination;
+import com.lsk.sms.service.NoticeService;
 import com.lsk.sms.service.PaymentService;
 import com.lsk.sms.service.PersonService;
 import com.lsk.sms.service.StudentService;
 import com.lsk.sms.util.SecurityUtil;
 import com.lsk.sms.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -33,6 +36,9 @@ public class Controller {
 
     @Autowired
     private PaymentService paymentService;
+
+    @Autowired
+    private NoticeService noticeService;
 
     /**
      * 查询所有用户
@@ -284,4 +290,48 @@ public class Controller {
     public Object allStudents() {
         return studentService.queryStudents();
     }
+
+    @JsonReturn
+    @PostMapping("/admin/notice/publish")
+    public Object publishNotice(String title, String content) {
+        noticeService.publishNotice(title, content);
+        return "Success";
+    }
+
+    @JsonReturn
+    @PostMapping("/finance/notice/publish")
+    public Object publishItemNotice(String title, String content, String address, Date receiveDate) {
+        noticeService.publishItemNotice(title, content, address, receiveDate);
+        return "Success";
+    }
+
+    @JsonReturn
+    @GetMapping("/student/notice/receive")
+    public Object receiveItem(Integer noticeID) {
+        noticeService.receiveItem(noticeID);
+        return "Success";
+    }
+
+    @JsonReturn
+    @Pagination
+    @GetMapping("/finance/notice/notReceivedStudents")
+    public Object notReceivedStudents(Integer noticeID) {
+        return noticeService.notReceivedStudents(noticeID);
+    }
+
+    @JsonReturn
+    @Pagination
+    @FormatDate("yyyy MM dd HH mm ss")
+    @GetMapping({"/student/notice/list", "/admin/notice/list"})
+    public Object noticeList() {
+        return noticeService.allNotices();
+    }
+
+    @JsonReturn
+    @GetMapping("/admin/notice/delete")
+    public Object deleteNotice(Integer noticeID) {
+        noticeService.deleteNotice(noticeID);
+        return "Success";
+    }
+
 }
