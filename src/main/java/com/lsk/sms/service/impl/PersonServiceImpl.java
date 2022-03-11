@@ -77,4 +77,10 @@ public class PersonServiceImpl implements PersonService {
     public void deletePerson(Integer id) {
         personDao.deletePerson(id);
     }
+
+    @Override
+    public String name(Integer id) {
+        Person person = personDao.queryPersonById(id);
+        return person.getName();
+    }
 }

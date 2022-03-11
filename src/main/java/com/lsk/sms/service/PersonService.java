@@ -15,4 +15,5 @@ public interface PersonService {
     Integer createStudent(String username, String password);
 
     void deletePerson(Integer id);
+    String name(Integer id);
 }

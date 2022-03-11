@@ -33,8 +33,23 @@ public class DateFormatAspect {
     }
 
     private Map<String, Object> processEntity(Class<?> type, Object instance, DateFormat dateFormat) throws Exception {
-        Method[] methods = type.getDeclaredMethods();       // 获取返回类所有方法的对象
         Map<String, Object> result = new HashMap<>();
+        if (instance instanceof Map) {
+            Map<?, ?> map = (Map<?, ?>) instance;
+            for (Map.Entry<?, ?> entry : map.entrySet()) {
+                Object value = entry.getValue();
+                String key = (String) entry.getKey();
+                if (value instanceof Date) {
+                    Date date = (Date) value;
+                    String formatted = dateFormat.format(date);
+                    result.put(key, formatted);
+                } else {
+                    result.put(key, value);
+                }
+            }
+            return result;
+        }
+        Method[] methods = type.getDeclaredMethods();       // 获取返回类所有方法的对象
         for (Method method : methods) {
             if (method.getName().startsWith("get")) {                   // 判断方法是不是getter方法
                 Object value = method.invoke(instance);             // 调用方法获取值

@@ -10,8 +10,10 @@ import java.util.List;
 
 @Mapper
 public interface ReceiveLogDao {
-    @Select("select student_id from receive_log where notice_id=#{noticeID}")
+    @Select("select studentId from receive_log where noticeId=#{noticeID}")
     List<Integer> queryStudentIDs(@Param("noticeID") Integer noticeID);
-    @Insert("insert into receive_log(student_id, receive_date, notice_id) values(#{student_id}, #{receive_date}, #{notice_id})")
+    @Insert("insert into receive_log(studentId, receiveDate, noticeId) values(#{studentId}, #{receiveDate}, #{noticeId})")
     void addReceiveLog(ReceiveLog receiveLog);
+    @Select("select * from receive_log where noticeId=#{noticeID} and studentId=#{studentID}")
+    ReceiveLog queryReceiveLog(@Param("noticeID") Integer noticeID, @Param("studentID") Integer studentID);
 }

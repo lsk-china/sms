@@ -35,14 +35,14 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public List<PayRecord> myPayRecords() {
         String name = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
-        Integer studentID = StudentCache.studentID(name);
+        Integer studentID = Integer.parseInt(redisDao.get(name + "-STUDENTID"));
         return paymentDao.queryPayRecord(studentID);
     }
 
     @Override
     public void pay(Integer targetPaymentID, Integer serialNumber) {
         String name = SecurityUtil.currentUsername();
-        Integer studentID = StudentCache.studentID(name);
+        Integer studentID = Integer.parseInt(redisDao.get(name + "-STUDENTID"));
         PayRecord payRecord = new PayRecord();
         payRecord.setOperateDate(new Date());
         payRecord.setStudentID(studentID);

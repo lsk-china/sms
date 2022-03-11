@@ -26,6 +26,9 @@ public class RedisDao {
             return jedis.get(key);
         }
     }
-
-
+    public boolean has(String key) {
+        try (Jedis jedis = jedisPool.getResource()) {
+            return jedis.exists(key);
+        }
+    }
 }

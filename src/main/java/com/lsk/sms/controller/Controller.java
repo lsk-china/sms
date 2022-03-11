@@ -300,7 +300,7 @@ public class Controller {
 
     @JsonReturn
     @PostMapping("/finance/notice/publish")
-    public Object publishItemNotice(String title, String content, String address, Date receiveDate) {
+    public Object publishItemNotice(String title, String content, String address, String receiveDate) {
         noticeService.publishItemNotice(title, content, address, receiveDate);
         return "Success";
     }
@@ -313,7 +313,6 @@ public class Controller {
     }
 
     @JsonReturn
-    @Pagination
     @GetMapping("/finance/notice/notReceivedStudents")
     public Object notReceivedStudents(Integer noticeID) {
         return noticeService.notReceivedStudents(noticeID);
@@ -322,7 +321,7 @@ public class Controller {
     @JsonReturn
     @Pagination
     @FormatDate("yyyy MM dd HH mm ss")
-    @GetMapping({"/student/notice/list", "/admin/notice/list"})
+    @GetMapping({"/student/notice/list", "/admin/notice/list", "/finance/notice/list"})
     public Object noticeList() {
         return noticeService.allNotices();
     }
@@ -333,5 +332,15 @@ public class Controller {
         noticeService.deleteNotice(noticeID);
         return "Success";
     }
+
+    @JsonReturn
+    @GetMapping("/name")
+    public Object username(Integer id) {
+        return personService.name(id);
+    }
+
+    @JsonReturn
+    @GetMapping("/student/notice/itemReceived")
+    public Object itemReceived(Integer id) { return noticeService.hasReceived(id); }
 
 }
