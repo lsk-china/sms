@@ -61,7 +61,6 @@
           <div class="labelWrap" style="margin-right: 20px;"><span class="label">角色:</span></div>
           <el-select v-model="createPerson.role">
             <el-option value="ADMIN" label="管理员"></el-option>
-            <el-option value="STUDENT" label="学生"></el-option>
             <el-option value="FINANCE" label="财务"></el-option>
           </el-select>
         </div>

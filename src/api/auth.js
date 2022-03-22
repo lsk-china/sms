@@ -1,4 +1,5 @@
 import base from './base'
+import storage from 'good-storage'
 
 const auth = {
   alreadyLogin: function () {
@@ -53,6 +54,17 @@ const auth = {
         console.log(resp)
         resolve()
       }).catch(reason => {
+        reject(reason)
+      })
+    })
+  },
+  username: function (id) {
+    return new Promise((resolve, reject) => {
+      base.get('/name', {id: id}).then(resp => {
+        console.log(resp)
+        resolve(resp.data)
+      }).catch(reason => {
+        console.error(reason)
         reject(reason)
       })
     })

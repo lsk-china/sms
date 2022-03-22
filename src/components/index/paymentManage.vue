@@ -172,17 +172,6 @@ export default {
           this.$message.error('发布失败')
         })
     },
-    dateFormatter: function (row, column, cellValue, index) {
-      console.log(cellValue)
-      return moment(cellValue, 'yyyy MM dd HH mm ss').format('yyyy年MM月DD日 HH:mm:ss')
-    },
-    sexFormatter: function (row, column, cellValue, index) {
-      if (cellValue === 1) {
-        return '男'
-      } else {
-        return '女'
-      }
-    },
     queryNotPayedStudent: function (page) {
       if (this.notPayedStudentsPaymentID === 0) {
         console.error('notPayedStudentsPaymentID is zero!')

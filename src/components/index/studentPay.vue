@@ -52,7 +52,6 @@
 
 <script>
 import payment from '../../api/payment'
-import moment from 'moment'
 
 export default {
   name: 'studentPay',
@@ -85,10 +84,6 @@ export default {
       }).catch(reason => {
         this.$message.error('获取缴费信息列表失败')
       })
-    },
-    dateFormatter: function (row, column, cellValue, index) {
-      console.log(cellValue)
-      return moment(cellValue, 'yyyy MM dd HH mm ss').format('yyyy年MM月DD日 HH:mm:ss')
     },
     pay: function () {
       this.showPayDialog = false

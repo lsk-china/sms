@@ -1,7 +1,7 @@
 <template>
     <div class="mainContainer" style="overflow: hidden;display: flex;flex-direction: row">
       <div class="leftContainer">
-        <h1>{{loginInfo.name}}<br/>你好</h1>
+        <h1 @click="changeComponent('introduce')">{{loginInfo.name}}<br/>你好</h1>
         <div class="buttonsContainer">
           <div v-if="loginInfo.authorities[0].role === 'ROLE_ADMIN'">
             <div class="divButton flexCenter" @click="changeComponent('accountManage')">
@@ -13,6 +13,9 @@
             <div class="divButton flexCenter" @click="changeComponent('studentManage')">
               <h3>学生管理</h3>
             </div>
+            <div class="divButton flexCenter" @click="changeComponent('noticeManage')">
+              <h3>校园公告</h3>
+            </div>
           </div>
           <div v-if="loginInfo.authorities[0].role === 'ROLE_STUDENT'">
             <div class="divButton flexCenter" @click="changeComponent('accountManage')">
@@ -21,6 +24,9 @@
             <div class="divButton flexCenter" @click="changeComponent('studentPay')">
               <h3>学生缴费</h3>
             </div>
+            <div class="divButton flexCenter" @click="changeComponent('noticeManage')">
+              <h3>校园公告</h3>
+            </div>
           </div>
           <div v-if="loginInfo.authorities[0].role === 'ROLE_FINANCE'">
             <div class="divButton flexCenter" @click="changeComponent('accountManage')">
@@ -28,6 +34,9 @@
             </div>
             <div class="divButton flexCenter" @click="changeComponent('paymentManage')">
               <h3>缴费管理</h3>
+            </div>
+            <div class="divButton flexCenter" @click="changeComponent('noticeManage')">
+              <h3>校园公告</h3>
             </div>
           </div>
         </div>
@@ -45,13 +54,15 @@ import userManage from './index/userManage'
 import studentManage from './index/studentManage'
 import paymentManage from './index/paymentManage'
 import studentPay from './index/studentPay'
+import introduce from './index/introduce'
+import noticeManage from './index/noticeManage'
 
 export default {
   name: 'index',
   data () {
     return {
       loginInfo: null,
-      rightComponent: accountManage
+      rightComponent: introduce
     }
   },
   methods: {
@@ -71,6 +82,12 @@ export default {
           break
         case 'studentPay':
           this.rightComponent = studentPay
+          break
+        case 'introduce':
+          this.rightComponent = introduce
+          break
+        case 'noticeManage':
+          this.rightComponent = noticeManage
           break
       }
     }

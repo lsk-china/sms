@@ -181,13 +181,6 @@ export default {
         this.studentListTotalPage = resp.totalPages
       })
     },
-    sexFormatter: function (row, column, cellValue, index) {
-      if (cellValue === 1) {
-        return '男'
-      } else {
-        return '女'
-      }
-    },
     deleteStudent: function (id) {
       this.deleteStudentID = id
       this.showConfirmDialog = true
