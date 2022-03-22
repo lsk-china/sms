@@ -14,11 +14,14 @@ import redis.clients.jedis.JedisPoolConfig;
 
 @Configuration
 public class Beans {
+    @Value("${redis.password}")
+    private String redisPassword;
+
     @Bean
     public Gson gson() { return new Gson(); }
     @Bean
     public JedisPool jedisPool() {
-        return new JedisPool(new JedisPoolConfig(), "localhost", 6379, 5000, "lsk123456", 3);
+        return new JedisPool(new JedisPoolConfig(), "localhost", 6379, 5000, redisPassword, 3);
     }
 
 }

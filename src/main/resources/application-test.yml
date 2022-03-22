@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/sms
+    url: jdbc:mysql://localhost:3306/sms2
     username: root
     password: lsk123456
     driver-class-name: com.mysql.jdbc.Driver
@@ -20,5 +20,3 @@ server:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
-redis:
-  password: lsk123456

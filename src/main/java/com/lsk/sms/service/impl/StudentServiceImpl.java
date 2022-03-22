@@ -7,6 +7,7 @@ import com.lsk.sms.redis.StudentCache;
 import com.lsk.sms.response.StatusCode;
 import com.lsk.sms.service.StudentService;
 import com.lsk.sms.util.SecurityUtil;
+import com.lsk.sms.util.SpringUtil;
 import com.lsk.sms.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -92,7 +93,9 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void studentReport(String clazz, Integer dormitoryID, Integer personID, Integer id) {
         studentDao.completeStudent(clazz, dormitoryID, personID, id);
-        StudentCache.addMapping(id);
+        Student student = studentDao.queryStudentById(id);
+        redisDao.set("STUDENT-NAME-" + student.getId(), student.getName());
+        redisDao.set("STUDENT-ID-" + student.getName(), student.getId().toString());
     }
     @Override
     public List<Student> notReportedStudents() {

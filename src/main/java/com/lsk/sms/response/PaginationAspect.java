@@ -57,10 +57,12 @@ public class PaginationAspect {
             }
             int indexStart = (page - 1) * ITEMS_PER_PAGE;
             int indexEnd = page * ITEMS_PER_PAGE;
-            if ((indexEnd - 1) > resultList.size()) {
-                indexEnd = resultList.size();
+            if ((indexEnd - 1) >= resultList.size()) {
+                indexEnd = resultList.size() - 1;
             }
-            List<Object> pagedResult = resultList.  subList(indexStart, indexEnd);
+            indexEnd = indexEnd == resultList.size() ? indexEnd - 1 : indexEnd;
+            log.debug(Integer.toString(indexEnd));
+            List<Object> pagedResult = resultList.subList(indexStart, indexEnd);
             Map<String, Object> resp = new HashMap<>();
             resp.put("totalPages", totalPages);
             resp.put("paged", pagedResult);
