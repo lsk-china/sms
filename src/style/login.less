@@ -39,7 +39,16 @@
   background-repeat: no-repeat;
   background-attachment: fixed;
   position: absolute;
+  z-index: -2;
+}
+.loginPanel:after {
+  content: '';
+  height: 350px;
+  width: 350px;
+  border-radius: 10px;
+  position: absolute;
   z-index: -1;
+  background: rgba(255, 255, 255, .3);
 }
 .loginPanel h1{
   color: white;
