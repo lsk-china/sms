@@ -4,6 +4,7 @@
 ##TODO
 - 重构Controller类
 - [已完成] 新的需求已完成
-- 把一些psrf迁移到配置文件中
+- [已完成] 把一些psrf迁移到配置文件中
 - 规范变量名
-- debug新的接口
+- [已完成] debug新的接口
+- 用Mybatis-Plus重构代码
