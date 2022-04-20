@@ -31,4 +31,8 @@ public class RedisDao {
             return jedis.exists(key);
         }
     }
+
+    public Integer getInteger(String key) {
+        return Integer.parseInt(get(key));
+    }
 }

@@ -41,19 +41,49 @@ public class UserServiceImpl implements UserService {
     public void updatePassword(String newPassword) {
         String newPasswordHash = HashUtil.sha256String(newPassword);
         String username = SecurityUtil.currentUsername();
-        Integer id = redisDao.get(username + "-ID");
+        Integer id = redisDao.getInteger(username + "-ID");
         User newUser = new User();
-        user.setId(id);
-        user.setPassword(newPasswordHash);
-        mapper.updateById(user);
+        newUser.setId(id);
+        newUser.setPassword(newPasswordHash);
+        userMapper.updateById(newUser);
     }
 
     @Override
-    public Integer createPerson(String username, String password, String role) {
+    public String createPerson(String username, String password, String role) {
         User user = new User();
-        user.setUsername(username);
+        user.setName(username);
         user.setPassword(HashUtil.sha256String(password));
         user.setRole(role);
         user.setUuid(UUID.randomUUID().toString());
+        userMapper.insert(user);
+        return user.getUuid();
+    }
+
+    @Override
+    public void updateUsername(String newUsername) {
+        String username = SecurityUtil.currentUsername();
+        Integer id = redisDao.getInteger(username + "-ID");
+        User user = new User();
+        user.setId(id);
+        user.setName(newUsername);
+        userMapper.updateById(user);
+    }
+
+    @Override
+    public void grantPerson(Integer targetUID, String role) {
+        User user = new User();
+        user.setId(targetUID);
+        user.setRole(role);
+        userMapper.updateById(user);
+    }
+
+    @Override
+    public void deletePerson(Integer id) {
+        userMapper.deleteById(id);
+    }
+
+    @Override
+    public String name(Integer id) {
+        return userMapper.selectById(id).getName();
     }
 }

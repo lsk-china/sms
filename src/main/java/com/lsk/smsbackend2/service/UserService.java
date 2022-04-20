@@ -10,7 +10,7 @@ public interface UserService {
 
     void updatePassword(String newPassword);
 
-    Integer createPerson(String username, String password, String role);
+    String createPerson(String username, String password, String role);
 
     void updateUsername(String newUsername);
 
