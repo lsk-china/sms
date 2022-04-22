@@ -22,6 +22,8 @@ import java.util.PrimitiveIterator;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private MyUserDetailsService myUserDetailsService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -70,11 +72,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         super.configure(auth);
-        auth.userDetailsService(myUserDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(myUserDetailsService).passwordEncoder(passwordEncoder);
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 }

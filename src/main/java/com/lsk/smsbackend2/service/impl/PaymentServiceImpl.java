@@ -19,7 +19,7 @@ import java.util.Date;
 
 @Service("paymentService")
 public class PaymentServiceImpl implements PaymentService {
-    @Value("${paging.itemsPerPage}")
+    @Value("${paging.items-per-page}")
     private Integer itemsPerPage;
 
     @Autowired
@@ -53,21 +53,28 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public void pay(Integer targetPaymentID, Integer serialNumber) {
-
+        Integer studentID = studentHelper.currentStudentId();
+        PayRecord payRecord = new PayRecord();
+        payRecord.setOperateDate(new Date());
+        payRecord.setStudentID(studentID);
+        payRecord.setStudentID(serialNumber);
+        payRecord.setTargetPaymentID(targetPaymentID);
+        payRecordMapper.insert(payRecord);
+        paymentMapper.increasePayedCount(targetPaymentID);
     }
 
     @Override
     public void publishPayment(String content, Date limitDate, Integer fee) {
-
-    }
-
-    @Override
-    public Page<Student> studentsNotPayed(Integer paymentID) {
-        return null;
+        Payment payment = new Payment();
+        payment.setPublishDate(new Date());
+        payment.setContent(content);
+        payment.setFee(fee);
+        payment.setLimitDate(limitDate);
+        paymentMapper.insert(payment);
     }
 
     @Override
     public void deletePayment(Integer id) {
-
+        paymentMapper.deleteById(id);
     }
 }

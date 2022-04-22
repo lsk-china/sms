@@ -16,7 +16,5 @@ public interface PaymentService {
 
     void publishPayment(String content, Date limitDate, Integer fee);
 
-    Page<Student> studentsNotPayed(Integer paymentID);
-
     void deletePayment(Integer id);
 }

@@ -6,6 +6,7 @@ import com.lsk.smsbackend2.model.Student;
 import com.lsk.smsbackend2.redis.RedisDao;
 import com.lsk.smsbackend2.response.StatusCode;
 import com.lsk.smsbackend2.service.StudentService;
+import com.lsk.smsbackend2.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,12 +21,12 @@ public class StudentHelper {
         if (redisDao.has("STUDENT-NAME-" + id)) {
             return redisDao.get("STUDENT-NAME-" + id);
         } else {
-            String name = studentMapper.studentNameOfPersonId(id);
-            if (name == null || name.equals("")) {
-                throw new StatusCode(404, "Student not found!");
+            Student student = studentMapper.selectById(id);
+            if (student == null) {
+                throw new StatusCode(404, "Student not found");
             }
-            redisDao.set("STUDENT-NAME-" + id, name);
-            return name;
+            putStudent(student);
+            return student.getName();
         }
     }
 
@@ -35,6 +36,8 @@ public class StudentHelper {
     }
 
     public Integer currentStudentId() {
-        return null;
+        String username = SecurityUtil.currentUsername();
+        Integer personID = redisDao.getInteger(username + "-ID");
+        return redisDao.getInteger("STUDENT-ID-" + personID);
     }
 }

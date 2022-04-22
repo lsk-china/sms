@@ -17,7 +17,7 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
     @Value("${paging.items-per-page}")
     private Integer itemsPerPage;
-    
+
     @Autowired
     private StudentMapper studentMapper;
 
@@ -79,7 +79,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Page<Student> notReportedStudents(Integer page) {
         return studentMapper.selectPage(
-                new Page<Student>(page, itemsPerPage), 
+                new Page<Student>(page, itemsPerPage),
                 new QueryWrapper<Student>().eq("class", "unset")
         );
     }
@@ -92,5 +92,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Page<Student> queryStudents(Integer page) {
         return studentMapper.selectPage(new Page<Student>(page, itemsPerPage), null);
+    }
+
+    @Override
+    public Page<Student> notPayedStudents(Integer page, Integer targetPaymentId) {
+        return studentMapper.queryNotPayedStudents(new Page<>(page, itemsPerPage), targetPaymentId);
     }
 }

@@ -1,6 +1,6 @@
 package com.lsk.smsbackend2.util;
 
-import com.lsk.sms.response.StatusCode;
+import com.lsk.smsbackend2.response.StatusCode;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

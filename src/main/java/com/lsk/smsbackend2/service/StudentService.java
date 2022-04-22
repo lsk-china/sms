@@ -23,4 +23,6 @@ public interface StudentService {
     void deleteStudent(Integer id);
 
     Page<Student> queryStudents(Integer page);
+
+    Page<Student> notPayedStudents(Integer page, Integer targetPaymentId);
 }
