@@ -7,7 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -17,6 +19,9 @@ import java.util.Date;
 public interface NoticeMapper extends BaseMapper<Notice> {
     @Select("select id, title, content, publishDate, (select name from persons where id=publisher) as publisher, type from notices")
     Page<MixedNotice> queryAllNotices(Page<MixedNotice> page);
+
+    @Select("select count(id) as hasReceived from receive_log where studentId=#{studentId} and noticeId=#{noticeId}")
+    Boolean hasReceived(@Param("studentId") Integer studentId, @Param("noticeId") Integer noticeId);
 
     @Data
     @NoArgsConstructor
