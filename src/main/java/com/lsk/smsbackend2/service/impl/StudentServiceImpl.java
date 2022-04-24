@@ -80,7 +80,7 @@ public class StudentServiceImpl implements StudentService {
     public Page<Student> notReportedStudents(Integer page) {
         return studentMapper.selectPage(
                 new Page<Student>(page, itemsPerPage),
-                new QueryWrapper<Student>().eq("class", "unset")
+                new QueryWrapper<Student>().eq("clazz", "unset")
         );
     }
 

@@ -7,4 +7,4 @@
 - [已完成] 把一些psrf迁移到配置文件中
 - 规范变量名
 - [已完成] debug新的接口
-- 用mybatis-plus重构代码
+- [wanc]用mybatis-plus重构代码

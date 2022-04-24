@@ -32,7 +32,7 @@ public class NoticeServiceImpl implements NoticeService {
     @Autowired
     private RedisDao redisDao;
 
-    @Value("${paging.items-per-pag}")
+    @Value("${paging.items-per-page}")
     private Integer itemsPerPage;
 
     private static final Gson gson = new Gson();
@@ -44,7 +44,7 @@ public class NoticeServiceImpl implements NoticeService {
         List<Map<String, Object>> result = notices.getRecords().stream()
                 .map(e -> {
                     Map<String, Object> notice = ReflectionUtil.objectToMap(e);
-                    if (e.getType().equals("ITEM")) {
+                    if (e.getType().equals("ITEM") && SecurityUtil.isStudent()) {
                         notice.put("hasReceived", noticeMapper.hasReceived(currentStudentId, e.getId()));
                     }
                     return notice;

@@ -19,7 +19,7 @@ public final class ReflectionUtil {
     private static String getterToFieldName (String getterName) {
         String removedGet = getterName.replace("get", "");
         char firstChar = removedGet.charAt(0);
-        char firstCharLowerCase = (char) (firstChar - 32);
+        char firstCharLowerCase = (char) (firstChar + 32);
         return removedGet.replace(firstChar, firstCharLowerCase);
     }
 

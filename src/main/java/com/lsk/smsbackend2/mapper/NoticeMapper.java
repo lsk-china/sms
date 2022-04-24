@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Date;
 
 @Mapper
-@Repository
+@Repository()
 public interface NoticeMapper extends BaseMapper<Notice> {
     @Select("select id, title, content, publishDate, (select name from persons where id=publisher) as publisher, type from notices")
     Page<MixedNotice> queryAllNotices(Page<MixedNotice> page);

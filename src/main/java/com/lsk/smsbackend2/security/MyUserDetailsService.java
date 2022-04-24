@@ -2,6 +2,7 @@ package com.lsk.smsbackend2.security;
 
 import com.lsk.smsbackend2.mapper.UserMapper;
 import com.lsk.smsbackend2.model.User;
+import com.lsk.smsbackend2.redis.RedisDao;
 import com.lsk.smsbackend2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,6 +22,9 @@ public class MyUserDetailsService implements UserDetailsService {
     private UserService userService;
 
     @Autowired
+    private RedisDao redisDao;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
@@ -32,6 +36,7 @@ public class MyUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
+        redisDao.set(username + "-ID", user.getId().toString());
         Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_" + user.getRole());
         grantedAuthorities.add(grantedAuthority);

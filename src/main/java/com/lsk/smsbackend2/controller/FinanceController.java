@@ -57,6 +57,6 @@ public class FinanceController {
 
     @GetMapping("/notice/list")
     public Object noticeList(Integer page) {
-        return noticeService.allNotices(page);
+        return Response.ok(noticeService.allNotices(page));
     }
 }

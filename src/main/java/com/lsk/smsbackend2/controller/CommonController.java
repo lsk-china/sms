@@ -45,16 +45,16 @@ public class CommonController {
     @GetMapping("/changeUsername")
     public Object changeUsername(String newUsername) {
         userService.updateUsername(newUsername);
-        return "Success";
+        return Response.ok("Success");
     }
 
     @GetMapping("/payments")
     public Object payments(Integer page) {
-        return paymentService.allPayments(page);
+        return Response.ok(paymentService.allPayments(page));
     }
 
     @GetMapping("/name")
     public Object username(Integer id) {
-        return userService.name(id);
+        return Response.ok(userService.name(id));
     }
 }

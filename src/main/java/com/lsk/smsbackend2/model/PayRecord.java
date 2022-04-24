@@ -1,17 +1,26 @@
 package com.lsk.smsbackend2.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
-
+@TableName("pay_record")
 public class PayRecord {
+    @TableId(type = IdType.AUTO)
     private Integer id;
+    @TableField("studentID")
     private Integer studentID;
+    @TableField("serialNumber")
     private Integer serialNumber;
+    @TableField("operateDate")
     private Date operateDate;
+    @TableField("targetPaymentID")
     private Integer targetPaymentID;
 
     public PayRecord() {

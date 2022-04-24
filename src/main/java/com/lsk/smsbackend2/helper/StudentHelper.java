@@ -36,6 +36,9 @@ public class StudentHelper {
     }
 
     public Integer currentStudentId() {
+        if (!SecurityUtil.isStudent()) {
+            return 0;
+        }
         String username = SecurityUtil.currentUsername();
         Integer personID = redisDao.getInteger(username + "-ID");
         return redisDao.getInteger("STUDENT-ID-" + personID);
