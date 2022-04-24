@@ -49,14 +49,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String createPerson(String username, String password, String role) {
+    public Integer createPerson(String username, String password, String role) {
         User user = new User();
         user.setName(username);
         user.setPassword(HashUtil.sha256String(password));
         user.setRole(role);
         user.setUuid(UUID.randomUUID().toString());
         userMapper.insert(user);
-        return user.getUuid();
+        return userMapper.selectOne(new QueryWrapper<User>().eq("uuid", user.getUuid())).getId();
     }
 
     @Override
