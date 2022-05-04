@@ -1,5 +1,5 @@
 import moment from 'moment'
-import storage from '_good-storage@1.1.1@good-storage'
+import storage from 'good-storage'
 import auth from '../api/auth'
 
 const formatter = {

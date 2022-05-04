@@ -21,9 +21,34 @@
       <el-button style="margin-top: 20px;" type="danger" @click="doDeletePerson">确定</el-button>
       <el-button style="margin-top: 20px;" type="default" @click="showEnsureDeleteDialog = false;deletePersonID = 0">取消</el-button>
     </el-dialog>
+    <el-dialog
+      :visible.sync="showCreateUserDialog"
+      title="创建用户"
+      width="40%"
+    >
+        <div class="inputGroup">
+          <div class="groupItem">
+            <div class="labelWrap"><span class="label">用户名:</span></div>
+            <el-input type="text" class="input" v-model="createPerson.name"></el-input>
+          </div>
+          <div class="groupItem">
+            <div class="labelWrap"><span class="label">密码:</span></div>
+            <el-input type="password" class="input" v-model="createPerson.password"></el-input>
+          </div>
+          <div class="groupItem">
+          <div class="labelWrap" style="margin-right: 20px;"><span class="label">角色:</span></div>
+            <el-select v-model="createPerson.role">
+              <el-option value="ADMIN" label="管理员"></el-option>
+              <el-option value="FINANCE" label="财务"></el-option>
+            </el-select>
+          </div>
+          <el-button type="primary" class="submit createUserSubmit" @click="doCreatePerson">提交</el-button>
+        </div>
+    </el-dialog>
     <div class="card">
       <span class="cardTitle">用户列表</span>
       <span class="refreshIcon" @click="refreshTable"></span>
+      <span class="createIcon" @click="showCreateUserDialog = true"></span>
       <keep-alive>
         <el-table :data="persons" stripe border width="100%" style="margin-top: 20px;">
           <el-table-column prop="id" label="用户ID" width="100px" align="center"></el-table-column>
@@ -46,6 +71,7 @@
       >
       </el-pagination>
     </div>
+    <!--
     <div class="card">
       <span class="cardTitle" style="float: left">新建用户</span>
       <div class="inputGroup">
@@ -67,6 +93,7 @@
         <el-button type="primary" class="submit createUserSubmit" @click="doCreatePerson">提交</el-button>
       </div>
     </div>
+    -->
   </div>
 </template>
 
@@ -89,7 +116,8 @@ export default {
         role: ''
       },
       userListPage: 1,
-      userListTotalPages: 0
+      userListTotalPages: 0,
+      showCreateUserDialog: false
     }
   },
   methods: {

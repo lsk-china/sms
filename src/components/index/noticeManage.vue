@@ -57,21 +57,7 @@
         class="pagination"
       ></el-pagination>
     </div>
-    <div class="card" v-if="this.role === 'ROLE_ADMIN'" style="width: 30%; margin-bottom: 20px">
-      <span class="cardTitle">发布公告</span>
-      <div clas="inputGroup">
-        <div class="inputItem">
-          <span class="label">标题：</span>
-          <el-input type="text" v-model="publishNoticeTitle"></el-input>
-        </div>
-        <div class="inputItem">
-          <span class="label">内容：</span>
-          <el-input type="textarea" resize="none" rows="4" v-model="publishNoticeContent"></el-input>
-        </div>
-      </div>
-      <el-button type="primary" style="float: right; margin-top: 20px;" @click="publishNotice">提交</el-button>
-    </div>
-    <div class="card" v-if="this.role === 'ROLE_FINANCE'" style="width: 30%">
+    <div class="card" v-if="this.role !== 'ROLE_STUDENT'" style="width: 30%; float: left;">
       <span class="cardTitle">物品领取公告</span>
       <div class="inputGroup">
         <div class="inputItem">
@@ -98,6 +84,20 @@
       </div>
       <el-button type="primary" @click="createItemNotice" class="submit" style="float: right; margin-top: 20px">提交</el-button>
     </div>
+    <div class="card" v-if="this.role === 'ROLE_ADMIN'" style="width: 30%; margin-bottom: 20px">
+      <span class="cardTitle">发布公告</span>
+      <div clas="inputGroup">
+        <div class="inputItem">
+          <span class="label">标题：</span>
+          <el-input type="text" v-model="publishNoticeTitle"></el-input>
+        </div>
+        <div class="inputItem">
+          <span class="label">内容：</span>
+          <el-input type="textarea" resize="none" rows="4" v-model="publishNoticeContent"></el-input>
+        </div>
+      </div>
+      <el-button type="primary" style="float: right; margin-top: 20px;" @click="publishNotice">提交</el-button>
+    </div>
     <div v-if="role === 'ROLE_STUDENT'"
          class="card"
          v-for="notice in noticeTable"
@@ -122,7 +122,7 @@
                    @click="receiveItem(notice.id)"
         >
           <span v-if="notice.hasReceived">已领取</span>
-          <span v-else>领取</span>
+          <span v-else>确认</span>
         </el-button>
       </div>
     </div>
@@ -131,7 +131,7 @@
 
 <script>
 import notice from '../../api/notice'
-import moment from '_moment@2.29.1@moment'
+import moment from 'moment'
 
 export default {
   name: 'noticeManage',

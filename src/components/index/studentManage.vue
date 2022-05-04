@@ -39,68 +39,7 @@
       </div>
       <el-button type="primary" style="margin-top: 20px" @click="showReportSuccessDialog = false">关闭</el-button>
     </el-dialog>
-    <div class="card">
-      <span class="cardTitle">学生列表</span>
-      <span class="refreshIcon" @click="updateStudentList"></span>
-      <el-table :data="studentList">
-        <el-table-column prop="id" label="学号" width="50px" align="center"></el-table-column>
-        <el-table-column prop="name" label="姓名" width="100px" align="left"></el-table-column>
-        <el-table-column prop="age" label="年龄" width="50px" align="center"></el-table-column>
-        <el-table-column prop="sex" label="性别" width="50px" align="center" :formatter="sexFormatter"></el-table-column>
-        <el-table-column prop="clazz" label="班级" width="70px" align="center"></el-table-column>
-        <el-table-column prop="address" label="住址" width="300px" align="left"></el-table-column>
-        <el-table-column prop="telephone" label="电话" width="150px" align="left"></el-table-column>
-        <el-table-column prop="dormitoryID" label="宿舍号码" width="50px" align="center"></el-table-column>
-        <el-table-column prop="matriculateNum" label="录取通知书编号" width="100px" align="left"></el-table-column>
-        <el-table-column prop="personID" label="用户ID" width="50px" align="center"></el-table-column>
-        <el-table-column label="操作" width="100px">
-          <template slot-scope="slot">
-            <el-button type="danger" @click="deleteStudent(slot.row.id)">删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <el-pagination
-        :total="studentListTotalPage"
-        :current-page.sync="studentListPage"
-        background
-        layout="prev, pager, next"
-        @current-change="updateStudentList"
-        class="pagination"
-      ></el-pagination>
-    </div>
-    <div style="width: 200px;height: 200px"></div>
-    <div class="card">
-      <span class="cardTitle">学生报道</span>
-      <span class="refreshIcon" @click="updateNotReportedStudents"></span>
-      <div class="searchMatriculateContainer">
-        <span>录取通知书编号：</span>
-        <el-input type="text" class="matriculateNum" v-model="matriculateNumToQuery"></el-input>
-        <el-button type="primary" @click="queryStudentByMatriculateNum">搜索</el-button>
-      </div>
-      <el-table :data="notReportedStudents">
-        <el-table-column prop="id" label="学号" width="50px" align="center"></el-table-column>
-        <el-table-column prop="name" label="姓名" width="100px" align="left"></el-table-column>
-        <el-table-column prop="age" label="年龄" width="50px" align="center"></el-table-column>
-        <el-table-column prop="sex" label="性别" width="50px" align="center" :formatter="sexFormatter"></el-table-column>
-        <el-table-column prop="address" label="住址" width="300px" align="left"></el-table-column>
-        <el-table-column prop="telephone" label="电话" width="150px" align="left"></el-table-column>
-        <el-table-column prop="matriculateNum" label="录取通知书编号" width="100px" align="left"></el-table-column>
-        <el-table-column label="操作" width="100px">
-          <template slot-scope="slot">
-            <el-button type="primary" @click="reportStudentID = slot.row.id;showReportDialog = true">报到</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <el-pagination
-        :total="notReportedStudentPageTotal"
-        :current-page.sync="notReportedStudentsPage"
-        background
-        layout="prev, pager, next"
-        @current-change="updateStudentList"
-        class="pagination"
-      ></el-pagination>
-    </div>
-    <div class="card" style="width: 30%">
+<div class="card" style="width: 30%">
       <span class="cardTitle">学生录取</span>
       <div class="inputGroup">
         <div class="inputItem">
@@ -133,6 +72,67 @@
       </div>
       <el-button type="primary" class="submit" style="float: right" @click="admit">提交</el-button>
     </div>
+<div class="card">
+      <span class="cardTitle">学生报道</span>
+      <span class="refreshIcon" @click="updateNotReportedStudents"></span>
+      <div class="searchMatriculateContainer">
+        <span>录取通知书编号：</span>
+        <el-input type="text" class="matriculateNum" v-model="matriculateNumToQuery"></el-input>
+        <el-button type="primary" @click="queryStudentByMatriculateNum">搜索</el-button>
+      </div>
+      <el-table :data="notReportedStudents">
+        <el-table-column prop="id" label="学号" width="50px" align="center"></el-table-column>
+        <el-table-column prop="name" label="姓名" width="100px" align="left"></el-table-column>
+        <el-table-column prop="age" label="年龄" width="50px" align="center"></el-table-column>
+        <el-table-column prop="sex" label="性别" width="50px" align="center" :formatter="sexFormatter"></el-table-column>
+        <el-table-column prop="address" label="住址" width="300px" align="left"></el-table-column>
+        <el-table-column prop="telephone" label="电话" width="150px" align="left"></el-table-column>
+        <el-table-column prop="matriculateNum" label="录取通知书编号" width="100px" align="left"></el-table-column>
+        <el-table-column label="操作" width="100px">
+          <template slot-scope="slot">
+            <el-button type="primary" @click="reportStudentID = slot.row.id;showReportDialog = true">报到</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <el-pagination
+        :total="notReportedStudentPageTotal"
+        :current-page.sync="notReportedStudentsPage"
+        background
+        layout="prev, pager, next"
+        @current-change="updateStudentList"
+        class="pagination"
+      ></el-pagination>
+    </div>
+    <div class="card">
+      <span class="cardTitle">学生列表</span>
+      <span class="refreshIcon" @click="updateStudentList"></span>
+      <el-table :data="studentList">
+        <el-table-column prop="id" label="学号" width="50px" align="center"></el-table-column>
+        <el-table-column prop="name" label="姓名" width="100px" align="left"></el-table-column>
+        <el-table-column prop="age" label="年龄" width="50px" align="center"></el-table-column>
+        <el-table-column prop="sex" label="性别" width="50px" align="center" :formatter="sexFormatter"></el-table-column>
+        <el-table-column prop="clazz" label="班级" width="70px" align="center"></el-table-column>
+        <el-table-column prop="address" label="住址" width="300px" align="left"></el-table-column>
+        <el-table-column prop="telephone" label="电话" width="150px" align="left"></el-table-column>
+        <el-table-column prop="dormitoryID" label="宿舍号码" width="50px" align="center"></el-table-column>
+        <el-table-column prop="matriculateNum" label="录取通知书编号" width="100px" align="left"></el-table-column>
+        <el-table-column prop="personID" label="用户ID" width="50px" align="center"></el-table-column>
+        <el-table-column label="操作" width="100px">
+          <template slot-scope="slot">
+            <el-button type="danger" @click="deleteStudent(slot.row.id)">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <el-pagination
+        :total="studentListTotalPage"
+        :current-page.sync="studentListPage"
+        background
+        layout="prev, pager, next"
+        @current-change="updateStudentList"
+        class="pagination"
+      ></el-pagination>
+    </div>
+    <div style="width: 200px;height: 200px"></div>
   </div>
 </template>
 
