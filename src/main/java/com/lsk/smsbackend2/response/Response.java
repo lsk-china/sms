@@ -2,8 +2,11 @@ package com.lsk.smsbackend2.response;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.gson.Gson;
+import com.lsk.smsbackend2.util.ReflectionUtil;
 
 import java.lang.annotation.Repeatable;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,16 +22,24 @@ public class Response {
         I may remove this method in newer version. Hope I will do that. :-)
      */
     private Object processPage(Object data) {
-        if (!(data instanceof Page)) {
-            return data;
+        try {
+            if (!(data instanceof Page)) {
+                return data;
+            }
+            Page<?> page = (Page<?>) data;
+            List<?> records = page.getRecords();
+            List<Map<String, Object>> resultPages = new ArrayList<>();
+            for (Object record : records) {
+                resultPages.add(ReflectionUtil.objectToMap(record));
+            }
+            Long total = page.getPages();
+            Map<String, Object> result = new HashMap<>();
+            result.put("paged", resultPages);
+            result.put("totalPages", total);
+            return result;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        Page<?> page = (Page<?>) data;
-        List<?> records = page.getRecords();
-        Long total = page.getTotal();
-        Map<String, Object> result = new HashMap<>();
-        result.put("paged", records);
-        result.put("totalPages", total);
-        return result;
     }
 
     private Response (int code, String message, Object data) {

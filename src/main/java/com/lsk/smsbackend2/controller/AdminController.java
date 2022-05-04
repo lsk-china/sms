@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -106,5 +107,10 @@ public class AdminController {
     @GetMapping("/notice/list")
     public Object noticeList(Integer page) {
         return Response.ok(noticeService.allNotices(page));
+    }
+
+    @PostMapping("/admitMultiStudents")
+    public Object admitMultiStudents (MultipartFile file) {
+        return null;
     }
 }

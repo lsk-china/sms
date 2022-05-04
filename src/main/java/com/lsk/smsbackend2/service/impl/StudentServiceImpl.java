@@ -73,6 +73,7 @@ public class StudentServiceImpl implements StudentService {
         student.setId(id);
         student.setDormitoryID(dormitoryID);
         student.setPersonID(personID);
+        student.setClazz(clazz);
         studentMapper.updateById(student);
     }
 
@@ -97,5 +98,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Page<Student> notPayedStudents(Integer page, Integer targetPaymentId) {
         return studentMapper.queryNotPayedStudents(new Page<>(page, itemsPerPage), targetPaymentId);
+    }
+
+    @Override
+    public Student queryStudentByPersonID(Integer personID) {
+        return studentMapper.selectOne(new QueryWrapper<Student>().eq("personID", personID));
     }
 }

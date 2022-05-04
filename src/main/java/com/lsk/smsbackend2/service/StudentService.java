@@ -25,4 +25,6 @@ public interface StudentService {
     Page<Student> queryStudents(Integer page);
 
     Page<Student> notPayedStudents(Integer page, Integer targetPaymentId);
+
+    Student queryStudentByPersonID(Integer personID);
 }
