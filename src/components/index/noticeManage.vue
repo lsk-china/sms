@@ -49,7 +49,7 @@
         </el-table-column>
       </el-table>
       <el-pagination
-        :total="noticeTableTotalPages"
+        :pageCount="noticeTableTotalPages"
         :current-page.sync="noticeTablePage"
         background
         layout="prev, pager, next"

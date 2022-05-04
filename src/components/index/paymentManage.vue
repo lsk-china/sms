@@ -112,7 +112,7 @@
 
 <script>
 import payment from '../../api/payment'
-import moment from 'moment'
+import moment from '../../util/moment.min'
 
 export default {
   name: 'paymentManage',
