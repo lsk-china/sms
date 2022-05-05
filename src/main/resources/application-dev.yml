@@ -26,6 +26,6 @@ paging:
   items-per-page: 10
 logging:
   level:
-    com:
-      lsk:
-        smsbackend2: debug
+    com.lsk.smsbackend2: debug
+    com.lsk.smsbackend2.util: debug
+

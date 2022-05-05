@@ -1,6 +1,8 @@
 package com.lsk.smsbackend2.controller;
 
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.lsk.smsbackend2.excel.StudentReadListener;
 import com.lsk.smsbackend2.model.User;
 import com.lsk.smsbackend2.response.Response;
 import com.lsk.smsbackend2.service.NoticeService;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +32,9 @@ public class AdminController {
 
     @Autowired
     private NoticeService noticeService;
+
+    @Autowired
+    private StudentReadListener studentReadListener;
 
     @GetMapping("/personList")
     public Object personList (Integer page) {
@@ -110,7 +116,8 @@ public class AdminController {
     }
 
     @PostMapping("/admitMultiStudents")
-    public Object admitMultiStudents (MultipartFile file) {
-        return null;
+    public Object admitMultiStudents (MultipartFile file) throws IOException {
+        EasyExcel.read(file.getInputStream(), studentReadListener);
+        return "Success";
     }
 }
