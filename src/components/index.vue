@@ -27,6 +27,9 @@
             <div class="divButton flexCenter" @click="changeComponent('noticeManage')">
               <h3>校园公告</h3>
             </div>
+            <div class="divButton flexCenter" @click="changeComponent('studentInfo')">
+              <h3>个人信息</h3>
+            </div>
           </div>
           <div v-if="loginInfo.authorities[0].role === 'ROLE_FINANCE'">
             <div class="divButton flexCenter" @click="changeComponent('accountManage')">
@@ -56,6 +59,7 @@ import paymentManage from './index/paymentManage'
 import studentPay from './index/studentPay'
 import introduce from './index/introduce'
 import noticeManage from './index/noticeManage'
+import studentInfo from './index/studentInfo'
 
 export default {
   name: 'index',
@@ -89,6 +93,8 @@ export default {
         case 'noticeManage':
           this.rightComponent = noticeManage
           break
+        case 'studentInfo':
+          this.rightComponent = studentInfo
       }
     }
   },

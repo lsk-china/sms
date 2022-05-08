@@ -246,7 +246,7 @@ export default {
     updateNotReceivedStudents: function () {
       console.log('debug')
       notice.notReceivedStudents(this.notReceivedStudentsNoticeID, this.notReceivedStudentsPage).then(resp => {
-        this.notReceivedStudents = resp
+        this.notReceivedStudents = resp.paged
         this.showNotReceivedStudentDialog = true
       }).catch(reason => {
         this.$message.error('查询失败')

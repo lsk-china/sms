@@ -96,7 +96,7 @@
             type="datetime"
             class="input"
             value-format="yyyy MM dd HH mm ss"
-            v-on:change="(date) => {publishPayment.limitDate = date}"
+            v-on:change="date => publishPayment.limitDate = date"
           ></el-date-picker>
         </div>
       </div>
@@ -112,7 +112,7 @@
 
 <script>
 import payment from '../../api/payment'
-import moment from '../../util/moment.min'
+import moment from 'moment'
 
 export default {
   name: 'paymentManage',
