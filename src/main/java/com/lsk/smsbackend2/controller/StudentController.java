@@ -25,24 +25,24 @@ public class StudentController {
         return Response.ok(studentService.info());
     }
 
-    @PostMapping("/student/updateInfo")
+    @PostMapping("/updateInfo")
     public Object updateInfo(String name, String address, String telephone) {
         studentService.updateInfo(name, address, telephone);
         return Response.ok("Success");
     }
 
-    @PostMapping("/student/pay")
+    @PostMapping("/pay")
     public Object studentPay(Integer targetPaymentID, Integer serialNumber) {
         paymentService.pay(targetPaymentID, serialNumber);
         return Response.ok("Success");
     }
 
-    @GetMapping("/student/myPayRecords")
+    @GetMapping("/myPayRecords")
     public Object myPayRecords(Integer page) {
         return Response.ok(paymentService.myPayRecords(page));
     }
 
-    @GetMapping("/student/notice/receive")
+    @GetMapping("/notice/receive")
     public Object receiveItem(Integer noticeID) {
         noticeService.receiveItem(noticeID);
         return Response.ok("Success");
@@ -53,6 +53,6 @@ public class StudentController {
         return Response.ok(noticeService.allNotices(page));
     }
 
-    @GetMapping("/student/notice/itemReceived")
+    @GetMapping("/notice/itemReceived")
     public Object itemReceived(Integer id) { return Response.ok(noticeService.hasReceived(id)); }
 }

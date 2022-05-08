@@ -57,7 +57,7 @@ public class PaymentServiceImpl implements PaymentService {
         PayRecord payRecord = new PayRecord();
         payRecord.setOperateDate(new Date());
         payRecord.setStudentID(studentID);
-        payRecord.setStudentID(serialNumber);
+        payRecord.setSerialNumber(serialNumber);
         payRecord.setTargetPaymentID(targetPaymentID);
         payRecordMapper.insert(payRecord);
         paymentMapper.increasePayedCount(targetPaymentID);

@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.gson.Gson;
 import com.lsk.smsbackend2.util.ReflectionUtil;
 
-import java.lang.annotation.Repeatable;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,9 +26,14 @@ public class Response {
             }
             Page<?> page = (Page<?>) data;
             List<?> records = page.getRecords();
-            List<Map<String, Object>> resultPages = new ArrayList<>();
-            for (Object record : records) {
-                resultPages.add(ReflectionUtil.objectToMap(record));
+            List<Object> resultPages = null;
+            if (shouldIChangeItToMap(records)) {
+                resultPages = new ArrayList<>();
+                for (Object record : records) {
+                    resultPages.add((Object) ReflectionUtil.objectToMap(record));
+                }
+            } else {
+                resultPages = (List<Object>) records;
             }
             Long total = page.getPages();
             Map<String, Object> result = new HashMap<>();
@@ -40,6 +43,15 @@ public class Response {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private boolean shouldIChangeItToMap(List<?> data) {
+        if (data.size() == 0) {
+            return false;
+        }
+        Object anElement = data.get(0);
+        Class<?> clazz = anElement.getClass();
+        return clazz.isAnnotationPresent(Bean.class);
     }
 
     private Response (int code, String message, Object data) {

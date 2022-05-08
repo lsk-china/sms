@@ -3,6 +3,7 @@ package com.lsk.smsbackend2.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lsk.smsbackend2.model.Notice;
+import com.lsk.smsbackend2.response.Bean;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public interface NoticeMapper extends BaseMapper<Notice> {
     @Select("select count(id) as hasReceived from receive_log where studentId=#{studentId} and noticeId=#{noticeId}")
     Boolean hasReceived(@Param("studentId") Integer studentId, @Param("noticeId") Integer noticeId);
 
+    @Bean
     @Data
     @NoArgsConstructor
     @AllArgsConstructor

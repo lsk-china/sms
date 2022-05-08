@@ -37,6 +37,7 @@ public final class ReflectionUtil {
             }
             Map<String, Object> result = new HashMap<>();
             Class<?> clazz = o.getClass();
+            log.debug(clazz.getName());
             Method[] methods = clazz.getDeclaredMethods();
             for (Method method : methods) {
                 if (method.getName().startsWith("get")) {

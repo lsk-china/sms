@@ -4,10 +4,12 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.lsk.smsbackend2.response.Bean;
 import lombok.*;
 
 import java.util.Date;
 
+@Bean
 @Setter
 @Getter
 @NoArgsConstructor
