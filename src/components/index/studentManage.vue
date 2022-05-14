@@ -1,6 +1,30 @@
 <template>
   <div class="mainContainer" style="overflow: auto; flex-direction: column">
     <el-dialog
+      :visible.sync="showUploadExcelDialog"
+      title="上传录取表格"
+      class="flexCenter"
+      width="fit-content"
+    >
+      <el-upload
+        action="/api/admin/admitMultiStudents"
+        drag
+        :auto-upload="false"
+        accept=".xls,.xlsx"
+        ref="upload"
+        :on-success="onUploadSuccess"
+        :on-error="onUploadFailed"
+      >
+        <i class="el-icon-upload"></i>
+        <div class="el-upload__text">Drop file here or <em>click to upload</em></div>
+      </el-upload>
+      <el-button
+        type="primary"
+        style="float: right; margin-bottom: 20px; margin-top: 20px"
+        @click="upload"
+      >上传</el-button>
+    </el-dialog>
+    <el-dialog
       :visible.sync="showConfirmDialog"
       title="警告"
       width="30%"
@@ -39,8 +63,9 @@
       </div>
       <el-button type="primary" style="margin-top: 20px" @click="showReportSuccessDialog = false">关闭</el-button>
     </el-dialog>
-<div class="card" style="width: 30%">
+    <div class="card" style="width: 30%; position: relative">
       <span class="cardTitle">学生录取</span>
+      <i class="el-icon-upload2 uploadButton" @click="showUploadExcelDialog = true"></i>
       <div class="inputGroup">
         <div class="inputItem">
           <span class="label">学生姓名：</span>
@@ -72,7 +97,7 @@
       </div>
       <el-button type="primary" class="submit" style="float: right" @click="admit">提交</el-button>
     </div>
-<div class="card">
+    <div class="card">
       <span class="cardTitle">学生报道</span>
       <span class="refreshIcon" @click="updateNotReportedStudents"></span>
       <div class="searchMatriculateContainer">
@@ -170,7 +195,8 @@ export default {
       temporaryPersonInfo: {
         name: '',
         password: ''
-      }
+      },
+      showUploadExcelDialog: false
     }
   },
   methods: {
@@ -274,6 +300,23 @@ export default {
         this.reportData.dormitoryID = 0
         this.$message.error('报道失败')
       })
+    },
+    upload: function () {
+      this.showUploadExcelDialog = false
+      this.$refs.upload.submit()
+    },
+    onUploadSuccess: function (resp, file, fileList) {
+      if (resp.code !== 200) {
+        this.$message.error('导入失败')
+        console.error(resp)
+      } else {
+        this.$message.success('导入成功')
+        this.updateNotReportedStudents()
+      }
+    },
+    onUploadFailed: function (err, file, fileList) {
+      console.error(err)
+      this.$message.error('导入失败')
     }
   },
   created () {
