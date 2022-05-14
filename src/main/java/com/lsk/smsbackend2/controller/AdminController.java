@@ -5,10 +5,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lsk.smsbackend2.excel.StudentReadListener;
 import com.lsk.smsbackend2.model.User;
 import com.lsk.smsbackend2.response.Response;
+import com.lsk.smsbackend2.response.StatusCode;
 import com.lsk.smsbackend2.service.NoticeService;
 import com.lsk.smsbackend2.service.StudentService;
 import com.lsk.smsbackend2.service.UserService;
 import com.lsk.smsbackend2.util.StringUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +22,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/admin/")
 public class AdminController {
@@ -32,9 +35,6 @@ public class AdminController {
 
     @Autowired
     private NoticeService noticeService;
-
-    @Autowired
-    private StudentReadListener studentReadListener;
 
     @GetMapping("/personList")
     public Object personList (Integer page) {
@@ -117,7 +117,11 @@ public class AdminController {
 
     @PostMapping("/admitMultiStudents")
     public Object admitMultiStudents (MultipartFile file) throws IOException {
-        EasyExcel.read(file.getInputStream(), studentReadListener);
-        return "Success";
+        log.debug(file.getOriginalFilename());
+        if (!(file.getOriginalFilename().endsWith(".xls") || file.getOriginalFilename().endsWith(".xlsx"))) {
+            return Response.error(new StatusCode(400, "Unsupported type"));
+        }
+        EasyExcel.read(file.getInputStream(), new StudentReadListener(studentService)).build().readAll();
+        return Response.ok("Success");
     }
 }

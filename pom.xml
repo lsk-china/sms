@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.lsk</groupId>
     <artifactId>sms-backend2</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <name>sms-backend2</name>
     <description>sms-backend2</description>
     <properties>
@@ -67,7 +67,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>
-            <version>2.2.11</version>
+            <version>3.1.0</version>
         </dependency>
     </dependencies>
 

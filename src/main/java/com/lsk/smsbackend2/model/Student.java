@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.lsk.smsbackend2.excel.entity.ExcelStudent;
 import com.lsk.smsbackend2.response.Bean;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,4 +33,15 @@ public class Student {
     private String telephone;
     @TableField("personID")
     private Integer personID;
+
+    public static Student fromExcelStudent(ExcelStudent excelStudent) {
+        Student student = new Student();
+        student.setName(excelStudent.getName());
+        student.setAge(excelStudent.getAge());
+        student.setSex("男".equals(excelStudent.getSex()) ? 1 : 0);
+        student.setTelephone(excelStudent.getTelephone());
+        student.setAddress(excelStudent.getAddress());
+        student.setMatriculateNum(excelStudent.getMatriculateNum());
+        return student;
+    }
 }

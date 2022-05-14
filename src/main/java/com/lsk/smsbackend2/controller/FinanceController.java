@@ -50,6 +50,12 @@ public class FinanceController {
         return Response.ok("Success");
     }
 
+    @PostMapping("/notice/publishNormal")
+    public Object publishNormalNotice(String title, String content) {
+        noticeService.publishNotice(title, content);
+        return Response.ok("Success");
+    }
+
     @GetMapping("/notice/notReceivedStudents")
     public Object notReceivedStudents(Integer noticeID, Integer page) {
         return Response.ok(noticeService.notReceivedStudents(noticeID, page));

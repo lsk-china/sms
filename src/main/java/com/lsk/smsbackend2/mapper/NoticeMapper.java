@@ -18,7 +18,7 @@ import java.util.Date;
 @Mapper
 @Repository()
 public interface NoticeMapper extends BaseMapper<Notice> {
-    @Select("select id, title, content, publishDate, (select name from persons where id=publisher) as publisher, type from notices")
+    @Select("select id, title, content, publishDate, (select name from persons where id=publisher) as publisher, type from notices order by publishDate desc")
     Page<MixedNotice> queryAllNotices(Page<MixedNotice> page);
 
     @Select("select count(id) as hasReceived from receive_log where studentId=#{studentId} and noticeId=#{noticeId}")

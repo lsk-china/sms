@@ -114,4 +114,5 @@ public class NoticeServiceImpl implements NoticeService {
         Integer studentId = studentHelper.currentStudentId();
         return noticeMapper.hasReceived(studentId, id);
     }
+
 }

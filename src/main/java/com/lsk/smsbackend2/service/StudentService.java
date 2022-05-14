@@ -1,6 +1,7 @@
 package com.lsk.smsbackend2.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.lsk.smsbackend2.excel.entity.ExcelStudent;
 import com.lsk.smsbackend2.model.Student;
 
 import java.util.List;
@@ -27,4 +28,6 @@ public interface StudentService {
     Page<Student> notPayedStudents(Integer page, Integer targetPaymentId);
 
     Student queryStudentByPersonID(Integer personID);
+
+    void admitMultiStudents(List<ExcelStudent> students);
 }

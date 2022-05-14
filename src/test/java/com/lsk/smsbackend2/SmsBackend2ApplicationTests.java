@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Slf4j
-@SpringBootTest
+//@SpringBootTest
 class SmsBackend2ApplicationTests {
 
     @Autowired
@@ -27,7 +27,7 @@ class SmsBackend2ApplicationTests {
     @Autowired
     private NoticeMapper noticeMapper;
 
-    @Test
+//    @Test
     void contextLoads() {
         Page<NoticeMapper.MixedNotice> page = noticeMapper.queryAllNotices(new Page<>(1, 5));
         for (NoticeMapper.MixedNotice notice : page.getRecords()) {

@@ -2,6 +2,7 @@ package com.lsk.smsbackend2.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.lsk.smsbackend2.excel.entity.ExcelStudent;
 import com.lsk.smsbackend2.mapper.StudentMapper;
 import com.lsk.smsbackend2.model.Student;
 import com.lsk.smsbackend2.redis.RedisDao;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service("studentService")
 public class StudentServiceImpl implements StudentService {
@@ -103,5 +105,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student queryStudentByPersonID(Integer personID) {
         return studentMapper.selectOne(new QueryWrapper<Student>().eq("personID", personID));
+    }
+
+    @Override
+    public void admitMultiStudents(List<ExcelStudent> students) {
+        List<Student> studentList = students.stream().map(Student::fromExcelStudent).collect(Collectors.toList());
+        studentMapper.admitStudentBatch(studentList);
     }
 }

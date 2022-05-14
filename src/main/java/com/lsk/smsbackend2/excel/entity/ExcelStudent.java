@@ -1,28 +1,33 @@
 package com.lsk.smsbackend2.excel.entity;
 
 import com.alibaba.excel.annotation.ExcelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.LinkedHashMap;
+
+@Slf4j
 @Data
+@AllArgsConstructor
 public class ExcelStudent {
-    @ExcelProperty("编号")
     private Integer id;
-
-    @ExcelProperty("姓名")
     private String name;
-
-    @ExcelProperty("年龄")
     private Integer age;
-
-    @ExcelProperty("性别")
     private String sex;
-
-    @ExcelProperty("电话")
     private String telephone;
-
-    @ExcelProperty("住址")
     private String address;
-
-    @ExcelProperty("录取通知书编号")
     private Integer matriculateNum;
+
+    public static ExcelStudent fromLinkedHashMap(LinkedHashMap<Integer, String> data) {
+        log.debug(data.toString());
+        Integer id = Integer.parseInt(data.get(0));
+        String name = data.get(1);
+        Integer age = Integer.parseInt(data.get(2));
+        String sex = data.get(3);
+        String telephone = data.get(4);
+        String address = data.get(5);
+        Integer matriculateNum = Integer.parseInt(data.get(6));
+        return new ExcelStudent(id, name, age, sex, telephone, address, matriculateNum);
+    }
 }
