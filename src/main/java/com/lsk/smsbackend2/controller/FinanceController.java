@@ -1,6 +1,7 @@
 package com.lsk.smsbackend2.controller;
 
 import com.lsk.smsbackend2.response.Response;
+import com.lsk.smsbackend2.response.StatusCode;
 import com.lsk.smsbackend2.service.NoticeService;
 import com.lsk.smsbackend2.service.PaymentService;
 import com.lsk.smsbackend2.service.StudentService;
@@ -45,14 +46,14 @@ public class FinanceController {
     }
 
     @PostMapping("/notice/publish")
-    public Object publishItemNotice(String title, String content, String address, String receiveDate) {
-        noticeService.publishItemNotice(title, content, address, receiveDate);
-        return Response.ok("Success");
-    }
-
-    @PostMapping("/notice/publishNormal")
-    public Object publishNormalNotice(String title, String content) {
-        noticeService.publishNotice(title, content);
+    public Object publishItemNotice(String title, String content, String address, String receiveDate, String type) {
+        if ("PLAIN".equals(type)) {
+            noticeService.publishNotice(title, content);
+        } else if ("ITEM".equals(type)) {
+            noticeService.publishItemNotice(title, content, address, receiveDate);
+        } else {
+            return Response.error(new StatusCode(400, "Unknown type"));
+        }
         return Response.ok("Success");
     }
 

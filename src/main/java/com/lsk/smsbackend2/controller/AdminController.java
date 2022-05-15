@@ -100,8 +100,14 @@ public class AdminController {
     }
 
     @PostMapping("/notice/publish")
-    public Object publishNotice(String title, String content) {
-        noticeService.publishNotice(title, content);
+    public Object publishItemNotice(String title, String content, String address, String receiveDate, String type) {
+        if ("PLAIN".equals(type)) {
+            noticeService.publishNotice(title, content);
+        } else if ("ITEM".equals(type)) {
+            noticeService.publishItemNotice(title, content, address, receiveDate);
+        } else {
+            return Response.error(new StatusCode(400, "Unknown type"));
+        }
         return Response.ok("Success");
     }
 
