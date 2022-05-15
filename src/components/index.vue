@@ -60,6 +60,7 @@ import studentPay from './index/studentPay'
 import introduce from './index/introduce'
 import noticeManage from './index/noticeManage'
 import studentInfo from './index/studentInfo'
+import storage from 'good-storage'
 
 export default {
   name: 'index',
@@ -101,6 +102,7 @@ export default {
   created () {
     auth.loginInfo().then(resp => {
       this.loginInfo = resp
+      storage.set('auth', resp)
     }).catch(reason => {
       if (reason.message === 'User not login') {
         this.$message.error('用户未登陆！3秒后跳转到登陆界面。')

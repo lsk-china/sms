@@ -2,7 +2,7 @@ import base from './base'
 
 const payment = {
   payments: function (page) {
-    return new Promise((resolve, reject) =>  {
+    return new Promise((resolve, reject) => {
       base.get('/payments', {page: page}).then(resp => {
         console.log(resp)
         resolve(resp)

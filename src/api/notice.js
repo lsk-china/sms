@@ -1,4 +1,5 @@
 import base from './base'
+import authtutil from '../util/authtutil'
 
 const notice = {
   notices: function (page, role) {
@@ -75,6 +76,32 @@ const notice = {
         console.error(reason)
         reject(reason)
       })
+    })
+  },
+  publishNotice2: function (data, type) {
+    return new Promise((resolve, reject) => {
+      let role = authtutil.currentRole()
+      data['type'] = type
+      console.log(role)
+      if (role === 'ROLE_ADMIN') {
+        base.post('/admin/notice/publish', data).then(resp => {
+          console.log(resp)
+          resolve()
+        }).catch(reason => {
+          console.error(reason)
+          reject(reason)
+        })
+      } else if (role === 'ROLE_FINANCE') {
+        base.post('/finance/notice/publish', data).then(resp => {
+          console.log(resp)
+          resolve()
+        }).catch(reason => {
+          console.error(reason)
+          reject(reason)
+        })
+      } else {
+        reject(new Error('Permission dined'))
+      }
     })
   }
 }

@@ -1,5 +1,4 @@
 import base from './base'
-import storage from 'good-storage'
 
 const auth = {
   alreadyLogin: function () {

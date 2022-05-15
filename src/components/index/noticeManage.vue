@@ -84,7 +84,7 @@
       </div>
       <el-button type="primary" @click="createItemNotice" class="submit" style="float: right; margin-top: 20px">提交</el-button>
     </div>
-    <div class="card" v-if="this.role === 'ROLE_ADMIN'" style="width: 30%; margin-bottom: 20px">
+    <div class="card" v-if="this.role !== 'ROLE_STUDENT'" style="width: 30%; margin-bottom: 20px; float: left">
       <span class="cardTitle">发布公告</span>
       <div clas="inputGroup">
         <div class="inputItem">
@@ -172,12 +172,26 @@ export default {
         this.$message.error('请填写全部字段！')
         return
       }
-      notice.publishNotice(this.publishNoticeTitle, this.publishNoticeContent).then(() => {
+      // notice.publishNotice(this.publishNoticeTitle, this.publishNoticeContent).then(() => {
+      //   this.publishNoticeContent = ''
+      //   this.publishNoticeTitle = ''
+      //   this.updateNoticeTable()
+      //   this.$message.success('发布成功')
+      // }).catch(reason => {
+      //   this.publishNoticeContent = ''
+      //   this.publishNoticeTitle = ''
+      //   this.$message.error('发布失败！')
+      // })
+      notice.publishNotice2({
+        title: this.publishNoticeTitle,
+        content: this.publishNoticeContent
+      }, 'PLAIN').then(() => {
         this.publishNoticeContent = ''
         this.publishNoticeTitle = ''
         this.updateNoticeTable()
         this.$message.success('发布成功')
       }).catch(reason => {
+        console.error(reason)
         this.publishNoticeContent = ''
         this.publishNoticeTitle = ''
         this.$message.error('发布失败！')
@@ -206,13 +220,14 @@ export default {
         this.$message.error('请填写全部字段')
         return
       }
-      notice.publishItemNotice(this.itemNotice).then(() => {
+      notice.publishNotice2(this.itemNotice, 'ITEM').then(() => {
         this.itemNotice.title = ''
         this.itemNotice.content = ''
         this.itemNotice.address = ''
         this.itemNotice.receiveDate = null
         this.$message.success('发布成功')
       }).catch(reason => {
+        console.error(reason)
         this.itemNotice.title = ''
         this.itemNotice.content = ''
         this.itemNotice.address = ''
