@@ -95,8 +95,7 @@ public class NoticeServiceImpl implements NoticeService {
 
     @Override
     public void receiveItem(Integer message) {
-        String username = SecurityUtil.currentUsername();
-        Integer studentID = Integer.parseInt(redisDao.get(username + "-STUDENTID"));
+        Integer studentID = studentHelper.currentStudentId();
         ReceiveLog receiveLog = new ReceiveLog();
         receiveLog.setStudentId(studentID);
         receiveLog.setReceiveDate(new Date());
