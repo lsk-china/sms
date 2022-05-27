@@ -45,6 +45,23 @@
           <el-button type="primary" class="submit createUserSubmit" @click="doCreatePerson">提交</el-button>
         </div>
     </el-dialog>
+    <el-dialog
+      title="修改密码"
+      width="30%"
+      :visible.sync="showUpdatePasswordDialog"
+    >
+      <div class="updatePasswordWrapper">
+        <div class="updatePasswordItem">
+          <span class="label">请输入新密码：</span>
+          <el-input type="password" v-model="updatePasswordNewPassword"></el-input>
+        </div>
+        <div class="updatePasswordItem">
+          <span class="label">再确认一遍：</span>
+          <el-input type="password" v-model="updatePasswordConfirmPassword"></el-input>
+        </div>
+        <el-button type="primary" @click="updatePassword">提交</el-button>
+      </div>
+    </el-dialog>
     <div class="card">
       <span class="cardTitle">用户列表</span>
       <span class="refreshIcon" @click="refreshTable"></span>
@@ -54,9 +71,10 @@
           <el-table-column prop="id" label="用户ID" width="100px" align="center"></el-table-column>
           <el-table-column prop="name" label="用户名" width="300px" align="left"></el-table-column>
           <el-table-column prop="role" label="角色" width="100px" align="center"></el-table-column>
-          <el-table-column label="操作" width="200px">
+          <el-table-column label="操作" width="300px">
             <template slot-scope="slot">
               <el-button type="primary" @click="grantPerson(slot.row.id)">授权</el-button>
+              <el-button type="primary" @click="updatePasswordID = slot.row.id;showUpdatePasswordDialog = true">修改密码</el-button>
               <el-button type="danger" @click="deletePerson(slot.row.id)">删除</el-button>
             </template>
           </el-table-column>
@@ -117,7 +135,11 @@ export default {
       },
       userListPage: 1,
       userListTotalPages: 0,
-      showCreateUserDialog: false
+      showCreateUserDialog: false,
+      updatePasswordID: -1,
+      updatePasswordNewPassword: '',
+      updatePasswordConfirmPassword: '',
+      showUpdatePasswordDialog: false
     }
   },
   methods: {
@@ -181,6 +203,28 @@ export default {
         this.userListTotalPages = resp.totalPages * 10
       }).catch(reason => {
         this.$message.error('获取用户列表失败！')
+      })
+    },
+    updatePassword: function () {
+      if (this.updatePasswordNewPassword !== this.updatePasswordConfirmPassword) {
+        this.$message.error('两次密码不匹配')
+        this.updatePasswordConfirmPassword = ''
+        this.updatePasswordNewPassword = ''
+        return
+      }
+      this.showUpdatePasswordDialog = false
+      if (this.updatePasswordID === -1) {
+        return
+      }
+      admin.updatePasswordFor(this.updatePasswordID, this.updatePasswordNewPassword).then(() => {
+        this.$message.success('更新成功')
+        this.updatePasswordConfirmPassword = ''
+        this.updatePasswordNewPassword = ''
+      }).catch(reason => {
+        console.error(reason)
+        this.$message.error('更新失败')
+        this.updatePasswordConfirmPassword = ''
+        this.updatePasswordNewPassword = ''
       })
     }
   },

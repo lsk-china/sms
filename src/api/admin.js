@@ -50,6 +50,18 @@ const admin = {
         reject(reason)
       })
     })
+  },
+  updatePasswordFor: function (targetID, newPassword) {
+    return new Promise((resolve, reject) => {
+      base.post('/admin/updatePasswordFor', {
+        targetID: targetID,
+        newPassword: newPassword
+      }).then(resp => {
+        resolve()
+      }).catch(reason => {
+        reject(reason)
+      })
+    })
   }
 }
 
