@@ -86,4 +86,13 @@ public class UserServiceImpl implements UserService {
     public String name(Integer id) {
         return userMapper.selectById(id).getName();
     }
+
+    @Override
+    public void updatePasswordFor(Integer targetID, String newPassword) {
+        String passwordHash = HashUtil.sha256String(newPassword);
+        User user = new User();
+        user.setId(targetID);
+        user.setPassword(passwordHash);
+        userMapper.updateById(user);
+    }
 }

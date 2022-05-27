@@ -19,4 +19,6 @@ public interface UserService {
     void deletePerson(Integer id);
 
     String name(Integer id);
+
+    void updatePasswordFor(Integer targetID, String newPassword);
 }

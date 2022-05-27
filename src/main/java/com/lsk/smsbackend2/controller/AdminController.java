@@ -130,4 +130,10 @@ public class AdminController {
         EasyExcel.read(file.getInputStream(), new StudentReadListener(studentService)).build().readAll();
         return Response.ok("Success");
     }
+
+    @PostMapping("/updatePasswordFor")
+    public Object updatePasswordFor(Integer targetUID, String newPassword) {
+        userService.updatePasswordFor(targetUID, newPassword);
+        return Response.ok("Success");
+    }
 }
